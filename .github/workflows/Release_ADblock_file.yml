@@ -30,8 +30,8 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -f adblock_reject_surge.txt timestamp.txt
-          git commit -m "Forced update of adblock_reject_surge.txt" || echo "No changes to commit"
+          git add -f adblock_reject_surge_domainset.txt adblock_reject_surge_ruleset.txt timestamp.txt
+          git commit -m "Forced update of adblock files" || echo "No changes to commit"
           git push origin main --force  # 强制推送到main分支
         env:
           TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN
@@ -45,16 +45,27 @@ jobs:
         with:
           tag_name: release-${{ env.time }}  # 使用时间戳作为标签名
           release_name: Release ${{ env.time }}  # 使用时间戳作为发布名称
-          body: "Periodic release of adblock_reject_surge.txt."  # 发布说明
+          body: "Periodic release of adblock files."  # 发布说明
           draft: false  # 创建正式发布，而非草稿
 
-      # 步骤6：上传adblock_reject_surge.txt
-      - name: Upload adblock_reject_surge.txt
+      # 步骤6：上传adblock_reject_surge_domainset.txt
+      - name: Upload adblock_reject_surge_domainset.txt
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}  # 使用创建发布时生成的URL
-          asset_path: ./adblock_reject_surge.txt
-          asset_name: adblock_reject_surge.txt
+          asset_path: ./adblock_reject_surge_domainset.txt
+          asset_name: adblock_reject_surge_domainset.txt
+          asset_content_type: text/plain
+
+      # 步骤7：上传adblock_reject_surge_ruleset.txt
+      - name: Upload adblock_reject_surge_ruleset.txt
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}  # 使用创建发布时生成的URL
+          asset_path: ./adblock_reject_surge_ruleset.txt
+          asset_name: adblock_reject_surge_ruleset.txt
           asset_content_type: text/plain

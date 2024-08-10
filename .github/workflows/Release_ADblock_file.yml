@@ -1,76 +1,42 @@
-# 工作流名称
-name: Release_ADblock_file
+name: Publish_AdBlock_Rule_Surge  # 工作流名称
 
-# 触发条件
 on:
   schedule:
     - cron: '*/20 * * * *'  # 每20分钟运行一次
   workflow_dispatch:  # 允许手动触发工作流
 
-# 工作流程中的作业
 jobs:
-  create-release:
-    runs-on: ubuntu-latest  # 在最新版本的Ubuntu上运行
+  build:
+    runs-on: ubuntu-latest  # 使用最新的 Ubuntu 版本作为运行环境
+
     steps:
-      # 步骤1：检出代码
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout repository  # 检出代码仓库
+      uses: actions/checkout@v3  # 使用官方的 checkout 操作来检出代码
 
-      # 步骤2：获取当前时间
-      - name: Get current time
-        id: current-time
-        run: echo "time=$(date +'%y%m%d%H%M')" >> $GITHUB_ENV  # 将时间保存为环境变量
+    - name: Install PowerShell 7  # 安装 PowerShell 7
+      run: |
+        sudo apt-get update  # 更新包列表
+        sudo apt-get install -y wget apt-transport-https software-properties-common  # 安装必要的包
+        wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb  # 下载微软的包配置文件
+        sudo dpkg -i packages-microsoft-prod.deb  # 安装包配置文件
+        sudo apt-get update  # 更新包列表
+        sudo apt-get install -y powershell  # 安装 PowerShell 7
+        rm packages-microsoft-prod.deb  # 删除包配置文件
 
-      # 步骤3：更新时间戳文件
-      - name: Update timestamp file
-        run: echo "${{ env.time }}" > timestamp.txt  # 将时间写入timestamp.txt文件
+    - name: Run adblock_rule_generator_surge.ps1  # 运行 adblock_rule_generator_surge.ps1 脚本
+      run: pwsh -File ./adblock_rule_generator_surge.ps1  # 使用 PowerShell 7 运行脚本
 
-      # 步骤4：添加、提交并推送更改
-      - name: Force add and commit changes
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -f adblock_reject.yaml adblock_reject.txt adblock_reject_change.txt adblock_reject_change.yaml adblock_reject_surge.txt timestamp.txt
-          git commit -m "Forced update of adblock files and timestamp"
-          git push origin main --force  # 强制推送到main分支
-        env:
-          TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN
+    - name: Force Add and Commit SURGE file  # 强制添加并提交 SURGE 文件
+      run: |
+        git config --global user.name 'github-actions'  # 配置提交用户名
+        git config --global user.email 'github-actions@github.com'  # 配置提交邮箱
+        git add -f adblock_reject_surge.txt  # 强制添加 adblock_reject_surge.txt 文件
+        git commit -m 'Update adblock_reject_surge.txt' || git commit --allow-empty -m 'Empty commit to force push'  # 提交更改，若无更改则提交空更改
 
-      # 步骤5：创建新的发布
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用TOKEN进行身份验证
-        with:
-          tag_name: release-${{ env.time }}  # 使用时间戳作为标签名
-          release_name: Release ${{ env.time }}  # 使用时间戳作为发布名称
-          body: "Periodic release of adblock files."  # 发布说明
-          draft: false  # 创建正式发布，而非草稿
-
-      # 步骤6-11：上传各个文件作为发布资产
-      # 每个步骤使用actions/upload-release-asset动作来上传一个文件
-      # 上传adblock_reject.yaml
-      - name: Upload adblock_reject.yaml
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}  # 使用创建发布时生成的URL
-          asset_path: ./adblock_reject.yaml
-          asset_name: adblock_reject.yaml
-          asset_content_type: application/x-yaml
-
-      # 上传adblock_reject.txt
-      - name: Upload adblock_reject.txt
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./adblock_reject.txt
-          asset_name: adblock_reject.txt
-          asset_content_type: text/plain
-
-
-   
+    - name: Retry Push SURGE file  # 推送 SURGE 文件，失败时重试
+      env:
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 密钥进行身份验证
+      run: |
+        for i in {1..5}; do  # 尝试最多5次
+          git push --force origin HEAD && exit 0 || (echo "Push failed, retrying in 10 seconds..." && sleep 10)
+        done

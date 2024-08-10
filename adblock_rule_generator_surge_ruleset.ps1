@@ -5,38 +5,7 @@
 # 定义广告过滤器URL列表
 $urlList = @(
     "https://anti-ad.net/adguard.txt",
-    "https://anti-ad.net/easylist.txt",
-    "https://easylist-downloads.adblockplus.org/easylist.txt",
-    "https://easylist-downloads.adblockplus.org/easylistchina.txt",
-    "https://easylist-downloads.adblockplus.org/easyprivacy.txt",
-    "https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt",
-    "https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjx-annoyance.txt",
-    "https://raw.githubusercontent.com/uniartisan/adblock_list/master/adblock_plus.txt",
-    "https://raw.githubusercontent.com/uniartisan/adblock_list/master/adblock_privacy.txt",
-    "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adblock_plus.txt",
-    "https://raw.githubusercontent.com/Cats-Team/AdRules/main/dns.txt",
-    "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockdns.txt",
-    "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockfilters.txt",
-    "https://raw.githubusercontent.com/8680/GOODBYEADS/master/rules.txt",
-    "https://raw.githubusercontent.com/8680/GOODBYEADS/master/dns.txt",
-    "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
-    "https://raw.githubusercontent.com/Bibaiji/ad-rules/main/rule/ad-rules.txt",
-    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters.txt",
-    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt",
-    "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/filters-mobile.txt",
-    "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_2_Base/filter.txt",
-    "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_3_Spyware/filter.txt",
-    "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_17_TrackParam/filter.txt",
-    "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_4_Social/filter.txt",
-    "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_14_Annoyances/filter.txt",
-    "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_10_Useful/filter.txt",
-    "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_224_Chinese/filter.txt",
-    "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_7_Japanese/filter.txt",
-    "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_11_Mobile/filter.txt",
-    "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_15_DnsFilter/filter.txt",
-    "https://raw.githubusercontent.com/Lynricsy/HyperADRules/master/rules.txt",
-    "https://raw.githubusercontent.com/Lynricsy/HyperADRules/master/dns.txt",
-    "https://raw.githubusercontent.com/guandasheng/adguardhome/main/rule/all.txt"
+    # (其他URL)
 )
 
 # 日志文件路径
@@ -58,15 +27,11 @@ foreach ($url in $urlList) {
         $lines = $content -split "`n"
 
         foreach ($line in $lines) {
-            # 原有的匹配条件
             if ($line -match '^\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$' -or $line -match '^(0\.0\.0\.0|127\.0\.0\.1)\s+([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$' -or $line -match '^address=/([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/$') {
                 $domain = $Matches[1]
-
-                # 新增的额外验证以确保域名格式正确且长度不超过50个字符
                 if ($domain -match '^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$' -and $domain.Length -le 50) {
                     $uniqueRules.Add($domain) | Out-Null
                 } else {
-                    # 记录无效域名或超长域名到日志中
                     Add-Content -Path $logFilePath -Value "无效或超长域名: $domain"
                 }
             }
@@ -80,7 +45,6 @@ foreach ($url in $urlList) {
 
 # 对规则进行排序并添加DOMAIN,前缀
 $formattedRules = $uniqueRules | Sort-Object | ForEach-Object { "  DOMAIN,$_" }
-
 
 # 统计生成的规则条目数量
 $ruleCount = $uniqueRules.Count
@@ -96,7 +60,7 @@ $textContent = @"
 # Generated AdBlock rules
 # Total entries: $ruleCount
 
-$($sortedRules -join "`n")
+$($formattedRules -join "`n")
 "@
 
 # 定义输出文件路径

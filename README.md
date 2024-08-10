@@ -41,9 +41,21 @@
 
 
 ```conf
-#适用于Surge的外部本地拦截域名规则集
+#适用于Surge的外部本地拦截域名txt格式规则集
 [Rule]
-RULE-SET,C:\Users\YourUsername\Documents\file.txt,REJECT  #你的外部本地拦截域名规则集文件保存路径
+RULE-SET,C:\Users\YourUsername\Documents\file.txt,REJECT  #你的外部本地拦截域名txt格式规则集文件保存路径
+
+```
+```conf
+#适用于Surge的外部本地拦截域名conf格式规则集
+[Rule]
+RULE-SET,C:\Users\YourUsername\Documents\file.conf,REJECT  #你的外部本地拦截域名conf格式规则集文件保存路径
+
+```
+```conf
+#适用于Surge的外部本地拦截域名yaml格式规则集
+[Rule]
+RULE-SET,C:\Users\YourUsername\Documents\file.yaml,REJECT  #你的外部本地拦截域名yaml格式规则集文件保存路径
 
 ```
 
@@ -62,16 +74,52 @@ RULE-SET,C:\Users\YourUsername\Documents\file.txt,REJECT  #你的外部本地拦
 
   *使用方式二：将下面对应格式的配置文件中[rule]字段内容添加到你的配置文件充当远程规则集，需要特别注意配置文件的缩进和对齐（同步本仓库的云端部署的远程规则集配置)*
 
+<hr>
+
 ```conf
-#适用于Surge的RULE-SET
+#适用于Surge的txt格式RULE-SET
 [Rule]
 RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.txt,REJECT
 ```
 ```conf
-#适用于Surge的DOMAIN-SET
+#适用于Surge的txt格式DOMAIN-SET
 [Rule]
 RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.txt,REJECT
 ```
+<br>
+<br>
+<br>
+```conf
+#适用于Surge的conf格式RULE-SET
+[Rule]
+RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.txt,REJECT
+```
+```conf
+#适用于Surge的conf格式DOMAIN-SET
+[Rule]
+RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.txt,REJECT
+```
+<br>
+<br>
+<br>
+```conf
+#适用于Surge的yaml格式RULE-SET
+[Rule]
+RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.yaml,REJECT
+```
+```conf
+#适用于Surge的yaml格式DOMAIN-SET
+[Rule]
+RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.yaml,REJECT
+```
+<br>
+<br>
+<hr>
+
+
+
+
+
 
 
 

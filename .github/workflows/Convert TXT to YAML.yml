@@ -1,23 +1,35 @@
-name: Rename TXT to YAML
-
+name: Process and Rename TXT to YAML
 on:
   schedule:
     - cron: '*/20 * * * *'  # 每20分钟运行一次
   workflow_dispatch:  # 允许手动触发
 
 jobs:
-  rename-and-push:
+  process-rename-and-push:
     runs-on: ubuntu-latest
     steps:
       # 检出仓库
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # 重命名文件
-      - name: Rename files
+      # 处理文件并重命名
+      - name: Process and rename files
         run: |
-          mv adblock_reject_surge_ruleset.txt adblock_reject_surge_ruleset.yaml
-          mv adblock_reject_surge_domainset.txt adblock_reject_surge_domainset.yaml
+          process_file() {
+            input_file="$1"
+            output_file="$2"
+            echo "payload:" > "$output_file"
+            while IFS= read -r line; do
+              if [[ $line == \#* ]] || [[ -z $line ]]; then
+                echo "  $line" >> "$output_file"
+              else
+                echo "  - $line" >> "$output_file"
+              fi
+            done < "$input_file"
+          }
+
+          process_file "adblock_reject_surge_ruleset.txt" "adblock_reject_surge_ruleset.yaml"
+          process_file "adblock_reject_surge_domainset.txt" "adblock_reject_surge_domainset.yaml"
 
       # 提交并推送更改
       - name: Commit and push changes
@@ -25,7 +37,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add adblock_reject_surge_ruleset.yaml adblock_reject_surge_domainset.yaml
-          git commit -m "Rename TXT to YAML" || exit 0
+          git commit -m "Process and rename TXT to YAML" || exit 0
           
           # 推送错误重试机制
           max_retries=5

@@ -30,17 +30,14 @@ jobs:
           while : ; do
             status=$(curl -s -H "Authorization: token $TOKEN" \
               -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?workflow_id=$workflow_id&status=completed&branch=$ref" \
-              | jq -r '.workflow_runs[0].conclusion')
+              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?workflow_id=$workflow_id&status=in_progress&branch=$ref" \
+              | jq -r '.workflow_runs[0].status')
 
-            if [[ "$status" == "success" ]]; then
-              echo "Workflow $workflow_id completed successfully."
+            if [[ "$status" == "in_progress" ]]; then
+              echo "Workflow $workflow_id is running."
               break
-            elif [[ "$status" == "failure" ]]; then
-              echo "Workflow $workflow_id failed."
-              exit 1
             else
-              echo "Waiting for workflow $workflow_id to complete..."
+              echo "Waiting for workflow $workflow_id to start..."
               sleep 30
             fi
           done
@@ -72,17 +69,14 @@ jobs:
           while : ; do
             status=$(curl -s -H "Authorization: token $TOKEN" \
               -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?workflow_id=$workflow_id&status=completed&branch=$ref" \
-              | jq -r '.workflow_runs[0].conclusion')
+              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?workflow_id=$workflow_id&status=in_progress&branch=$ref" \
+              | jq -r '.workflow_runs[0].status')
 
-            if [[ "$status" == "success" ]]; then
-              echo "Workflow $workflow_id completed successfully."
+            if [[ "$status" == "in_progress" ]]; then
+              echo "Workflow $workflow_id is running."
               break
-            elif [[ "$status" == "failure" ]]; then
-              echo "Workflow $workflow_id failed."
-              exit 1
             else
-              echo "Waiting for workflow $workflow_id to complete..."
+              echo "Waiting for workflow $workflow_id to start..."
               sleep 30
             fi
           done

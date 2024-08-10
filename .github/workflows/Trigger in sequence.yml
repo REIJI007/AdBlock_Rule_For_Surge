@@ -2,45 +2,87 @@ name: Trigger in sequence
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '*/20 * * * *'  # 每20分钟触发一次
 
 jobs:
-  trigger-run-adblock-rule-generator:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger Run_AdBlock_Rule_Generator_TXT workflow
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const response = await github.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'Run_AdBlock_Rule_Generator_TXT.yml',
-              ref: 'main',  # 替换为目标分支名称
-            });
-            console.log('Triggered Run_AdBlock_Rule_Generator_TXT workflow:', response.status);
 
-  wait-for-90-seconds:
+  trigger_adblock_rule_generator_txt:
     runs-on: ubuntu-latest
-    needs: trigger-run-adblock-rule-generator
     steps:
-      - name: Waiting for 90 seconds
-        run: sleep 90
+      - name: Checkout repository
+        uses: actions/checkout@v3  # 检出仓库代码
 
-  trigger-release-adblock-file:
-    runs-on: ubuntu-latest
-    needs: wait-for-90-seconds
-    steps:
-      - name: Trigger Release_ADblock_file workflow
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const response = await github.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'Release_ADblock_file.yml',
-              ref: 'main',  # 替换为目标分支名称
-            });
-            console.log('Triggered Release_ADblock_file workflow:', response.status);
+      - name: Trigger and verify Run_AdBlock_Rule_Generator_TXT
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          workflow_id="Run_AdBlock_Rule_Generator_TXT.yml"
+          ref="main"
+          # 触发工作流
+          response=$(curl -X POST -H "Authorization: token $TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
+            -d "{\"ref\":\"$ref\"}")
+          echo "Triggered workflow $workflow_id: $response"
 
+          # 验证工作流成功触发
+          while : ; do
+            status=$(curl -s -H "Authorization: token $TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?workflow_id=$workflow_id&status=completed&branch=$ref" \
+              | jq -r '.workflow_runs[0].conclusion')
+
+            if [[ "$status" == "success" ]]; then
+              echo "Workflow $workflow_id completed successfully."
+              break
+            elif [[ "$status" == "failure" ]]; then
+              echo "Workflow $workflow_id failed."
+              exit 1
+            else
+              echo "Waiting for workflow $workflow_id to complete..."
+              sleep 30
+            fi
+          done
+
+          # 等待90秒
+          sleep 90
+
+  trigger_release_adblock_file:
+    runs-on: ubuntu-latest
+    needs: trigger_adblock_rule_generator_txt
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3  # 检出仓库代码
+
+      - name: Trigger and verify Release_ADblock_file
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          workflow_id="Release_ADblock_file.yml"
+          ref="main"
+          # 触发工作流
+          response=$(curl -X POST -H "Authorization: token $TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
+            -d "{\"ref\":\"$ref\"}")
+          echo "Triggered workflow $workflow_id: $response"
+
+          # 验证工作流成功触发
+          while : ; do
+            status=$(curl -s -H "Authorization: token $TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?workflow_id=$workflow_id&status=completed&branch=$ref" \
+              | jq -r '.workflow_runs[0].conclusion')
+
+            if [[ "$status" == "success" ]]; then
+              echo "Workflow $workflow_id completed successfully."
+              break
+            elif [[ "$status" == "failure" ]]; then
+              echo "Workflow $workflow_id failed."
+              exit 1
+            else
+              echo "Waiting for workflow $workflow_id to complete..."
+              sleep 30
+            fi
+          done

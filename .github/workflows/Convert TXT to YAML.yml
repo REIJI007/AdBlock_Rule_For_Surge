@@ -1,4 +1,4 @@
-name: Convert TXT to YAML
+name: Rename TXT to YAML
 
 on:
   schedule:
@@ -6,45 +6,28 @@ on:
   workflow_dispatch:  # 允许手动触发
 
 jobs:
-  convert-and-push:
+  rename-and-push:
     runs-on: ubuntu-latest
     steps:
+      # 检出仓库
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-
-      - name: Install PyYAML
-        run: pip install PyYAML
-
-      - name: Convert TXT to YAML
+      # 重命名文件
+      - name: Rename files
         run: |
-          import yaml
-          
-          def convert_txt_to_yaml(input_file, output_file):
-              with open(input_file, 'r') as f:
-                  content = f.read().splitlines()
-              
-              yaml_content = yaml.dump(content, default_flow_style=False)
-              
-              with open(output_file, 'w') as f:
-                  f.write(yaml_content)
-          
-          convert_txt_to_yaml('adblock_reject_surge_ruleset.txt', 'adblock_reject_surge_ruleset.yaml')
-          convert_txt_to_yaml('adblock_reject_surge_domainset.txt', 'adblock_reject_surge_domainset.yaml')
-        shell: python
+          mv adblock_reject_surge_ruleset.txt adblock_reject_surge_ruleset.yaml
+          mv adblock_reject_surge_domainset.txt adblock_reject_surge_domainset.yaml
 
+      # 提交并推送更改
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add adblock_reject_surge_ruleset.yaml adblock_reject_surge_domainset.yaml
-          git commit -m "Convert TXT to YAML" || exit 0
+          git commit -m "Rename TXT to YAML" || exit 0
           
-          # 添加推送错误重试机制
+          # 推送错误重试机制
           max_retries=5
           retry_count=0
           

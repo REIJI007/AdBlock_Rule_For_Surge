@@ -1,0 +1,46 @@
+name: Trigger in sequence
+
+on:
+  workflow_dispatch:
+
+jobs:
+  trigger-run-adblock-rule-generator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Run_AdBlock_Rule_Generator_TXT workflow
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const response = await github.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'Run_AdBlock_Rule_Generator_TXT.yml',
+              ref: 'main',  # 替换为目标分支名称
+            });
+            console.log('Triggered Run_AdBlock_Rule_Generator_TXT workflow:', response.status);
+
+  wait-for-90-seconds:
+    runs-on: ubuntu-latest
+    needs: trigger-run-adblock-rule-generator
+    steps:
+      - name: Waiting for 90 seconds
+        run: sleep 90
+
+  trigger-release-adblock-file:
+    runs-on: ubuntu-latest
+    needs: wait-for-90-seconds
+    steps:
+      - name: Trigger Release_ADblock_file workflow
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const response = await github.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'Release_ADblock_file.yml',
+              ref: 'main',  # 替换为目标分支名称
+            });
+            console.log('Triggered Release_ADblock_file workflow:', response.status);
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+

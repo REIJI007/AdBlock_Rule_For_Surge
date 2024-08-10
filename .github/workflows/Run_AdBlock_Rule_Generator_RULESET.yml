@@ -29,6 +29,9 @@ jobs:
     - name: Run adblock_rule_generator_surge_ruleset.ps1  # 运行 adblock_rule_generator_surge_ruleset.ps1 脚本
       run: pwsh -File ./adblock_rule_generator_surge_ruleset.ps1  # 使用 PowerShell 运行脚本
 
+    - name: Check and Display SURGE file content  # 检查并显示 SURGE 文件内容
+      run: cat adblock_reject_surge_ruleset.txt
+
     - name: Force Add and Commit SURGE file  # 强制添加并提交 SURGE 文件
       run: |
         git config --global user.name 'github-actions'  # 配置提交用户名

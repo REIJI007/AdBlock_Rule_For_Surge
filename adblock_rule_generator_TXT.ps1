@@ -1,6 +1,6 @@
-# Title: AdBlock_Rule_For_Surge
-# Description: 适用于Surge的域名拦截RULE-SET，每20分钟更新一次，确保即时同步上游减少误杀
-# Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Surge
+# Title: AdBlock_Rule_For_Clash
+# Description: 适用于Clash的域名拦截rule-providers，每20分钟更新一次，确保即时同步上游减少误杀
+# Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Clash
 
 # 定义广告过滤器URL列表
 $urlList = @(
@@ -78,30 +78,29 @@ foreach ($url in $urlList) {
     }
 }
 
-# 对规则进行排序并添加DOMAIN,前缀
-$formattedRules = $uniqueRules | Sort-Object | ForEach-Object { "  - DOMAIN,$_" }
+# 对规则进行排序
+$sortedRules = $uniqueRules | Sort-Object
 
 # 统计生成的规则条目数量
 $ruleCount = $uniqueRules.Count
 
 # 创建文本格式的字符串
-$txtContent = @"
-# Title: AdBlock_Rule_For_Surge
-# Description: 适用于Surge的域名拦截RULE-SET，每20分钟更新一次，确保即时同步上游减少误杀
-# Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Surge
-# LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-GPL3.0
-# LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-CC%20BY-NC-SA%204.0
+$textContent = @"
+# Title: AdBlock_Rule_For_Clash
+# Description: 适用于Clash的域名拦截rule-providers，同时提供兼容Surge的规则集配置，每20分钟更新一次，确保即时同步上游减少误杀
+# Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Clash
+# LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Clash/blob/main/LICENSE-GPL3.0
+# LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Clash/blob/main/LICENSE-CC%20BY-NC-SA%204.0
 
 # Generated AdBlock rules
 # Total entries: $ruleCount
 
-payload:
-$($formattedRules -join "`n")
+$($sortedRules -join "`n")
 "@
 
 # 定义输出文件路径
 $outputPath = "$PSScriptRoot/adblock_reject.txt"
-$txtContent | Out-File -FilePath $outputPath -Encoding utf8
+$textContent | Out-File -FilePath $outputPath -Encoding utf8
 
 # 输出生成的有效规则总数
 Write-Host "生成的有效规则总数: $ruleCount"

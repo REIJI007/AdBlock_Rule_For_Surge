@@ -34,64 +34,41 @@ jobs:
           git commit -m "Forced update of adblock files" || echo "No changes to commit"
           git push origin main --force  # 强制推送到main分支
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN
+          TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN
 
-      # 步骤5：创建新的发布
+      # 步骤5：创建新的发布，并添加重试机制，最多尝试5次
       - name: Create Release
         id: create_release
-        run: |
-          retry() {
-            local n=$1
-            local cmd="${@:2}"
-            local i=0
-            while [ $i -lt $n ]; do
-              eval "$cmd" && return 0
-              i=$((i+1))
-              echo "Retry $i/$n failed, retrying in 10 seconds..."
-              sleep 10
-            done
-            return 1
-          }
-          retry 5 'gh release create --tag release-${{ env.time }} --title "Release ${{ env.time }}" --notes "Periodic release of adblock files." --target main'
+        uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用TOKEN进行身份验证
+        with:
+          tag_name: release-${{ env.time }}  # 使用时间戳作为标签名
+          release_name: Release ${{ env.time }}  # 使用时间戳作为发布名称
+          body: "Periodic release of adblock files."  # 发布说明
+          draft: false  # 创建正式发布，而非草稿
+        retry: 5  # 最多重试5次
 
-      # 步骤6：上传adblock_reject_surge_domainset.txt
+      # 步骤6：上传adblock_reject_surge_domainset.txt，添加重试机制
       - name: Upload adblock_reject_surge_domainset.txt
-        run: |
-          retry() {
-            local n=$1
-            local cmd="${@:2}"
-            local i=0
-            while [ $i -lt $n ]; do
-              eval "$cmd" && return 0
-              i=$((i+1))
-              echo "Retry $i/$n failed, retrying in 10 seconds..."
-              sleep 10
-            done
-            return 1
-          }
-          upload_cmd="gh release upload ${{ steps.create_release.outputs.upload_url }} ./adblock_reject_surge_domainset.txt --clobber"
-          retry 5 "$upload_cmd"
+        uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}  # 使用创建发布时生成的URL
+          asset_path: ./adblock_reject_surge_domainset.txt
+          asset_name: adblock_reject_surge_domainset.txt
+          asset_content_type: text/plain
+        retry: 5  # 最多重试5次
 
-      # 步骤7：上传adblock_reject_surge_ruleset.txt
+      # 步骤7：上传adblock_reject_surge_ruleset.txt，添加重试机制
       - name: Upload adblock_reject_surge_ruleset.txt
-        run: |
-          retry() {
-            local n=$1
-            local cmd="${@:2}"
-            local i=0
-            while [ $i -lt $n ]; do
-              eval "$cmd" && return 0
-              i=$((i+1))
-              echo "Retry $i/$n failed, retrying in 10 seconds..."
-              sleep 10
-            done
-            return 1
-          }
-          upload_cmd="gh release upload ${{ steps.create_release.outputs.upload_url }} ./adblock_reject_surge_ruleset.txt --clobber"
-          retry 5 "$upload_cmd"
+        uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}  # 使用创建发布时生成的URL
+          asset_path: ./adblock_reject_surge_ruleset.txt
+          asset_name: adblock_reject_surge_ruleset.txt
+          asset_content_type: text/plain
+        retry: 5  # 最多重试5次

@@ -36,26 +36,6 @@ jobs:
         env:
           TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN
 
-      # 重试机制函数
-      - name: Retry Function
-        id: retry
-        run: |
-          retry() {
-            local n=$1
-            local cmd="${@:2}"
-            local i=0
-            while [ $i -lt $n ]; do
-              eval "$cmd" && return 0
-              i=$((i+1))
-              echo "Retry $i/$n failed, retrying in 10 seconds..."
-              sleep 10
-            done
-            return 1
-          }
-          echo "::set-output name=retry_cmd::$(echo retry 5 'create_release_cmd')"
-          echo "::set-output name=upload_cmd::$(echo retry 5 'upload_cmd')"
-          echo "::set-output name=retry_cmd::$(echo retry 5 'upload_cmd')"
-
       # 步骤5：创建新的发布
       - name: Create Release
         id: create_release
@@ -72,7 +52,7 @@ jobs:
             done
             return 1
           }
-          retry 5 'gh release create ${{ env.time }} --title "Release ${{ env.time }}" --notes "Periodic release of adblock files."'
+          retry 5 'gh release create --tag release-${{ env.time }} --title "Release ${{ env.time }}" --notes "Periodic release of adblock files."'
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
@@ -91,7 +71,8 @@ jobs:
             done
             return 1
           }
-          retry 5 'gh release upload ${{ steps.create_release.outputs.upload_url }} ./adblock_reject_surge_domainset.txt'
+          upload_cmd="gh release upload ${{ steps.create_release.outputs.upload_url }} ./adblock_reject_surge_domainset.txt --clobber"
+          retry 5 "$upload_cmd"
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
@@ -110,6 +91,7 @@ jobs:
             done
             return 1
           }
-          retry 5 'gh release upload ${{ steps.create_release.outputs.upload_url }} ./adblock_reject_surge_ruleset.txt'
+          upload_cmd="gh release upload ${{ steps.create_release.outputs.upload_url }} ./adblock_reject_surge_ruleset.txt --clobber"
+          retry 5 "$upload_cmd"
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}

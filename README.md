@@ -53,7 +53,7 @@ RULE-SET,C:\Users\YourUsername\Documents\file.txt,REJECT  #你的外部本地拦
 ```conf
 #适用于Surge的外部远程拦截域名规则集
 [Rule]
-RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Clash@main/adblock_reject_surge.txt,REJECT
+RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge.txt,REJECT
 ```
 
 

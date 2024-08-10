@@ -84,9 +84,48 @@ jobs:
           # 等待90秒
           sleep 90
 
-  trigger_release_adblock_file:
+  trigger_convert_txt_to_yaml:
     runs-on: ubuntu-latest
     needs: trigger_adblock_rule_generator_domainset
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3  # 检出仓库代码
+
+      - name: Trigger and verify Convert TXT to YAML
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          workflow_id="Convert TXT to YAML.yml"
+          ref="main"
+          # 触发工作流
+          response=$(curl -X POST -H "Authorization: token $TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
+            -d "{\"ref\":\"$ref\"}")
+          echo "Triggered workflow $workflow_id: $response"
+
+          # 验证工作流成功触发
+          while : ; do
+            status=$(curl -s -H "Authorization: token $TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?workflow_id=$workflow_id&status=in_progress&branch=$ref" \
+              | jq -r '.workflow_runs[0].status')
+
+            if [[ "$status" == "in_progress" ]]; then
+              echo "Workflow $workflow_id is running."
+              break
+            else
+              echo "Waiting for workflow $workflow_id to start..."
+              sleep 30
+            fi
+          done
+
+          # 等待90秒
+          sleep 90
+
+  trigger_release_adblock_file:
+    runs-on: ubuntu-latest
+    needs: trigger_convert_txt_to_yaml
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3  # 检出仓库代码
@@ -128,6 +167,7 @@ jobs:
     needs: 
       - trigger_adblock_rule_generator_ruleset
       - trigger_adblock_rule_generator_domainset
+      - trigger_convert_txt_to_yaml
       - trigger_release_adblock_file
     steps:
       - name: Ensure all workflows succeeded

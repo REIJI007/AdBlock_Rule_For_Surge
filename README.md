@@ -23,10 +23,10 @@
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.txt*
 <br>
 
-*2、适用于Surged的外部远程域名拦截DOMAIN-SET规则集 adblock_reject_surge_domain.txt* 
+*2、适用于Surged的外部远程域名拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.txt* 
 <br>
-*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domain.txt*
-*https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domain.txt*
+*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.txt*
+*https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.txt*
 <br>
 
 

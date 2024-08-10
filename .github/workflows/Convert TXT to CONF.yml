@@ -1,0 +1,47 @@
+name: Convert TXT to CONF
+on:
+  schedule:
+    - cron: '*/20 * * * *'  # 每20分钟运行一次
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  rename-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      # 检出仓库
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # 重命名文件
+      - name: Rename files
+        run: |
+          mv adblock_reject_surge_ruleset.txt adblock_reject_surge_ruleset.conf
+          mv adblock_reject_surge_domainset.txt adblock_reject_surge_domainset.conf
+
+      # 提交并推送更改
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add adblock_reject_surge_ruleset.conf adblock_reject_surge_domainset.conf
+          git commit -m "Rename TXT to CONF" || exit 0
+          
+          # 推送错误重试机制
+          max_retries=5
+          retry_count=0
+          
+          while [ $retry_count -lt $max_retries ]; do
+            if git push; then
+              echo "Successfully pushed changes"
+              exit 0
+            else
+              echo "Push failed. Retrying in 30 seconds..."
+              sleep 30
+              retry_count=$((retry_count + 1))
+            fi
+          done
+          
+          echo "Failed to push changes after $max_retries attempts"
+          exit 1
+        env:
+          TOKEN: ${{ secrets.TOKEN }}

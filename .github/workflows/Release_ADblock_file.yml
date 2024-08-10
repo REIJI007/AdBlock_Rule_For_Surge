@@ -25,18 +25,18 @@ jobs:
       - name: Update timestamp file
         run: echo "${{ env.time }}" > timestamp.txt  # 将时间写入timestamp.txt文件
 
-      # 步骤4：添加、提交并推送更改
+      # 步骤4：强制添加、提交并推送更改
       - name: Force add and commit changes
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add -f adblock_reject_surge_domainset.txt adblock_reject_surge_ruleset.txt timestamp.txt
-          git commit -m "Forced update of adblock files and timestamp"
+          git commit -m "Forced update of adblock files" || echo "No changes to commit"
           git push origin main --force  # 强制推送到main分支
         env:
           TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN
 
-      # 步骤5：创建新的发布，并添加重试机制
+      # 步骤5：创建新的发布
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -47,9 +47,8 @@ jobs:
           release_name: Release ${{ env.time }}  # 使用时间戳作为发布名称
           body: "Periodic release of adblock files."  # 发布说明
           draft: false  # 创建正式发布，而非草稿
-        retry: 5  # 最多重试5次
 
-      # 步骤6：上传adblock_reject_surge_domainset.txt，添加重试机制
+      # 步骤6：上传adblock_reject_surge_domainset.txt
       - name: Upload adblock_reject_surge_domainset.txt
         uses: actions/upload-release-asset@v1
         env:
@@ -59,9 +58,8 @@ jobs:
           asset_path: ./adblock_reject_surge_domainset.txt
           asset_name: adblock_reject_surge_domainset.txt
           asset_content_type: text/plain
-        retry: 5  # 最多重试5次
 
-      # 步骤7：上传adblock_reject_surge_ruleset.txt，添加重试机制
+      # 步骤7：上传adblock_reject_surge_ruleset.txt
       - name: Upload adblock_reject_surge_ruleset.txt
         uses: actions/upload-release-asset@v1
         env:
@@ -71,4 +69,3 @@ jobs:
           asset_path: ./adblock_reject_surge_ruleset.txt
           asset_name: adblock_reject_surge_ruleset.txt
           asset_content_type: text/plain
-        retry: 5  # 最多重试5次

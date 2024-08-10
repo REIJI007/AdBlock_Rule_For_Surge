@@ -119,3 +119,14 @@ jobs:
               sleep 30
             fi
           done
+
+    check_all_workflows:
+    runs-on: ubuntu-latest
+    needs: 
+      - trigger_adblock_rule_generator_ruleset
+      - trigger_adblock_rule_generator_domainset
+      - trigger_release_adblock_file
+    steps:
+      - name: Ensure all workflows succeeded
+        run: |
+          echo "All workflows completed successfully"

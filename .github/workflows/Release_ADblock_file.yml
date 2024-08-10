@@ -34,7 +34,7 @@ jobs:
           git commit -m "Forced update of adblock files" || echo "No changes to commit"
           git push origin main --force  # 强制推送到main分支
         env:
-          TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN
 
       # 步骤5：创建新的发布
       - name: Create Release
@@ -52,9 +52,9 @@ jobs:
             done
             return 1
           }
-          retry 5 'gh release create --tag release-${{ env.time }} --title "Release ${{ env.time }}" --notes "Periodic release of adblock files."'
+          retry 5 'gh release create --tag release-${{ env.time }} --title "Release ${{ env.time }}" --notes "Periodic release of adblock files." --target main'
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN
 
       # 步骤6：上传adblock_reject_surge_domainset.txt
       - name: Upload adblock_reject_surge_domainset.txt
@@ -74,7 +74,7 @@ jobs:
           upload_cmd="gh release upload ${{ steps.create_release.outputs.upload_url }} ./adblock_reject_surge_domainset.txt --clobber"
           retry 5 "$upload_cmd"
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN
 
       # 步骤7：上传adblock_reject_surge_ruleset.txt
       - name: Upload adblock_reject_surge_ruleset.txt
@@ -94,4 +94,4 @@ jobs:
           upload_cmd="gh release upload ${{ steps.create_release.outputs.upload_url }} ./adblock_reject_surge_ruleset.txt --clobber"
           retry 5 "$upload_cmd"
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用存储在仓库密钥中的TOKEN

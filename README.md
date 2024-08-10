@@ -17,6 +17,8 @@
 
 **一、从多个广告过滤器中提取拦截域名条目，删除重复项，并将它们转换为兼容Surge的列表格式，其中列表的每一项都写成了Matcher Ruleset格式数组，一行仅一条规则。该列表可以用作Surge的RULE-SET以阻止广告域名， powershell脚本每20分钟自动执行并将生成的文件发布在release中.**
 
+<hr>
+
 *1、适用于Surged的外部远程域名拦截RULE-SET规则集 adblock_reject_surge_ruleset.txt* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.txt*
@@ -32,6 +34,7 @@
 
 
 
+<hr>
 
 
 **二、理论上任何代理拦截域名且符合广告过滤器过滤语法的列表订阅URL都可加入此powershell脚本处理，请自行酌情添加过滤器订阅URL至adblock_rule_generator_surge.ps1脚本中进行处理，你可将该脚本代码复制到本地文本编辑器制作成.ps1后缀的文件运行在powershell上，注意修改生成的yaml文件路径，最后在surge的配置中实现调用本地生成的规则集文件，且surge配置字段写成类似于如下例子**

@@ -77,7 +77,7 @@ foreach ($url in $urlList) {
 }
 
 # 对规则进行排序并添加DOMAIN,前缀
-$formattedRules = $uniqueRules | Sort-Object | ForEach-Object { "  DOMAIN,$_" }
+$formattedRules = $uniqueRules | Sort-Object | ForEach-Object { "DOMAIN,$_" }
 
 # 统计生成的规则条目数量
 $ruleCount = $uniqueRules.Count

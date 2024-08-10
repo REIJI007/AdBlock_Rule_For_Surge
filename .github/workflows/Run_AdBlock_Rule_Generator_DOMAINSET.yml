@@ -40,7 +40,7 @@ jobs:
 
     - name: Retry Push TXT file  # 推送 TXT 文件，失败时重试
       env:
-        TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 密钥进行身份验证
+        TOKEN: ${{ secrets.TOKEN }}  # 使用 GitHub 密钥进行身份验证
       run: |
         for i in {1..5}; do  # 尝试最多5次
           git push --force origin HEAD && exit 0 || (echo "Push failed, retrying in 10 seconds..." && sleep 10)

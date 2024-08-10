@@ -21,7 +21,7 @@ jobs:
             echo "payload:" > "$output_file"
             while IFS= read -r line; do
               if [[ $line == \#* ]] || [[ -z $line ]]; then
-                echo "  $line" >> "$output_file"
+                echo "$line" >> "$output_file"
               else
                 echo "  - $line" >> "$output_file"
               fi

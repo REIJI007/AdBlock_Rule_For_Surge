@@ -78,6 +78,11 @@ foreach ($url in $urlList) {
     }
 }
 
+# 对规则进行排序并添加DOMAIN,前缀
+$formattedRules = $uniqueRules | Sort-Object | ForEach-Object { "DOMAIN,$_" }
+
+
+
 # 对规则进行排序
 $sortedRules = $uniqueRules | Sort-Object
 

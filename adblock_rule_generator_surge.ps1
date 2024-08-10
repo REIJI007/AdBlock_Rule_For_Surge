@@ -1,4 +1,4 @@
-# Title: AdBlock_Rule_For_Surge
+# Title: AdBlock_Rule_For_Surge_RULESET
 # Description: 适用于Surge的域名拦截RULE-SET，每20分钟更新一次，确保即时同步上游减少误杀
 # Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Surge
 
@@ -81,8 +81,6 @@ foreach ($url in $urlList) {
 # 对规则进行排序并添加DOMAIN,前缀
 $formattedRules = $uniqueRules | Sort-Object | ForEach-Object { "DOMAIN,$_" }
 
-
-
 # 对规则进行排序
 $sortedRules = $uniqueRules | Sort-Object
 
@@ -91,7 +89,7 @@ $ruleCount = $uniqueRules.Count
 
 # 创建文本格式的字符串
 $textContent = @"
-# Title: AdBlock_Rule_For_Surge
+# Title: AdBlock_Rule_For_Surge_RULESET
 # Description: 适用于Surge的域名拦截RULE-SET，每20分钟更新一次，确保即时同步上游减少误杀
 # Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Surge
 # LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-GPL3.0
@@ -104,7 +102,7 @@ $($sortedRules -join "`n")
 "@
 
 # 定义输出文件路径
-$outputPath = "$PSScriptRoot/adblock_reject_surge.txt"  # 修改此行
+$outputPath = "$PSScriptRoot/adblock_reject_surge_ruleset.txt"
 $textContent | Out-File -FilePath $outputPath -Encoding utf8
 
 # 输出生成的有效规则总数

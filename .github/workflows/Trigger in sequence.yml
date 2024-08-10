@@ -120,7 +120,10 @@ jobs:
             fi
           done
 
-    check_all_workflows:
+          # 等待90秒
+          sleep 90
+
+  check_all_workflows:
     runs-on: ubuntu-latest
     needs: 
       - trigger_adblock_rule_generator_ruleset

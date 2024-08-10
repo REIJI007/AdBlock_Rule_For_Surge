@@ -1,4 +1,4 @@
-name: Publish_AdBlock_Rule_Surge  # 工作流名称
+name: Release_ADblock_file.yml  # 工作流名称
 
 on:
   schedule:

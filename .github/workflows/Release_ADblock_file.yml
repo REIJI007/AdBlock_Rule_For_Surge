@@ -72,46 +72,5 @@ jobs:
           asset_name: adblock_reject.txt
           asset_content_type: text/plain
 
-      # 上传adblock_reject_change.txt
-      - name: Upload adblock_reject_change.txt
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./adblock_reject_change.txt
-          asset_name: adblock_reject_change.txt
-          asset_content_type: text/plain
 
-      # 上传adblock_reject_change.yaml
-      - name: Upload adblock_reject_change.yaml
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./adblock_reject_change.yaml
-          asset_name: adblock_reject_change.yaml
-          asset_content_type: application/x-yaml
-
-      # 上传adblock_reject_surge.txt
-      - name: Upload adblock_reject_surge.txt
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./adblock_reject_surge.txt
-          asset_name: adblock_reject_surge.txt
-          asset_content_type: text/plain
-
-      # 上传adblock_reject.mrs
-      - name: Upload adblock_reject.mrs
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./adblock_reject.mrs
-          asset_name: adblock_reject.mrs
-          asset_content_type: text/plain
+   

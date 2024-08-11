@@ -37,15 +37,18 @@ jobs:
             mv "$tmp_file" "$output_file"
           }
 
-          # 处理并重命名文件
+          # 处理并重命名 adblock_reject_surge_ruleset.txt
           process_file "adblock_reject_surge_ruleset.txt" "adblock_reject_surge_ruleset.yaml"
+
+          # 处理并重命名 adblock_reject_surge_domainset.txt
+          process_file "adblock_reject_surge_domainset.txt" "adblock_reject_surge_domainset.yaml"
 
       # 提交并推送更改
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add adblock_reject_surge_ruleset.yaml
+          git add adblock_reject_surge_ruleset.yaml adblock_reject_surge_domainset.yaml
           git commit -m "Convert TXT to YAML" || exit 0
 
           # 拉取远程仓库的最新更改并合并

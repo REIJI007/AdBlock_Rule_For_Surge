@@ -38,14 +38,14 @@ jobs:
           }
 
           # 处理并重命名文件
-          process_file "adblock_reject_shadowrocket_ruleset.txt" "adblock_reject_shadowrocket_ruleset.yaml"
+          process_file "adblock_reject_surge_ruleset.txt" "adblock_reject_surge_ruleset.yaml"
 
       # 提交并推送更改
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add adblock_reject_shadowrocket_ruleset.yaml
+          git add adblock_reject_suger_ruleset.yaml
           git commit -m "Convert TXT to YAML" || exit 0
 
           # 拉取远程仓库的最新更改并合并

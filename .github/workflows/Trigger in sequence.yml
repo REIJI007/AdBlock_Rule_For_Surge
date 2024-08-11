@@ -6,244 +6,81 @@ on:
     - cron: '*/20 * * * *'  # 每20分钟自动触发一次
 
 jobs:
-
-  # 触发 Run_AdBlock_Rule_Generator_RULESET 工作流
-  trigger_adblock_rule_generator_ruleset:
+  trigger_workflows:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Trigger and verify Run_AdBlock_Rule_Generator_RULESET
+      - name: Trigger and verify workflows
         env:
           TOKEN: ${{ secrets.TOKEN }}  # 使用GitHub secrets中存储的token
         run: |
-          # 定义工作流文件名和分支
-          workflow_id="Run_AdBlock_Rule_Generator_RULESET.yml"
+          workflows=(
+            "Run_AdBlock_Rule_Generator_RULESET.yml"
+            "Run_AdBlock_Rule_Generator_DOMAINSET.yml"
+            "Convert TXT to CONF.yml"
+            "Convert TXT to LIST.yml"
+            "Convert TXT to YAML.yml"
+            "Release_ADblock_file.yml"
+          )
+          
           ref="main"
           
-          # 使用GitHub API触发工作流
-          response=$(curl -X POST -H "Authorization: token $TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
-            -d "{\"ref\":\"$ref\"}")
-          echo "Triggered workflow $workflow_id: $response"
-
-          # 循环检查工作流是否开始运行
-          while : ; do
-            status=$(curl -s -H "Authorization: token $TOKEN" \
+          for workflow_id in "${workflows[@]}"; do
+            echo "Triggering workflow: $workflow_id"
+            
+            # 使用GitHub API触发工作流
+            response=$(curl -X POST -H "Authorization: token $TOKEN" \
               -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=in_progress&branch=$ref" \
-              | jq -r '.workflow_runs[0].status')
+              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
+              -d "{\"ref\":\"$ref\"}")
+            echo "Triggered workflow $workflow_id: $response"
 
-            if [[ "$status" == "in_progress" ]]; then
-              echo "Workflow $workflow_id is running."
-              break
-            else
-              echo "Waiting for workflow $workflow_id to start..."
-              sleep 30
+            # 循环检查工作流是否开始运行
+            while : ; do
+              status=$(curl -s -H "Authorization: token $TOKEN" \
+                -H "Accept: application/vnd.github.v3+json" \
+                "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=in_progress&branch=$ref" \
+                | jq -r '.workflow_runs[0].status')
+
+              if [[ "$status" == "in_progress" ]]; then
+                echo "Workflow $workflow_id is running."
+                break
+              else
+                echo "Waiting for workflow $workflow_id to start..."
+                sleep 30
+              fi
+            done
+
+            # 等待工作流完成
+            while : ; do
+              status=$(curl -s -H "Authorization: token $TOKEN" \
+                -H "Accept: application/vnd.github.v3+json" \
+                "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=completed&branch=$ref" \
+                | jq -r '.workflow_runs[0].status')
+
+              if [[ "$status" == "completed" ]]; then
+                echo "Workflow $workflow_id has completed."
+                break
+              else
+                echo "Waiting for workflow $workflow_id to complete..."
+                sleep 60
+              fi
+            done
+
+            # 检查工作流是否成功完成
+            conclusion=$(curl -s -H "Authorization: token $TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=completed&branch=$ref" \
+              | jq -r '.workflow_runs[0].conclusion')
+
+            if [[ "$conclusion" != "success" ]]; then
+              echo "Workflow $workflow_id failed or was cancelled. Stopping sequence."
+              exit 1
             fi
+
+            echo "Workflow $workflow_id completed successfully."
           done
 
-          # 等待工作流完成（这里简单地等待90秒）
-          sleep 90
-
-  # 触发 Run_AdBlock_Rule_Generator_DOMAINSET 工作流
-  trigger_adblock_rule_generator_domainset:
-    runs-on: ubuntu-latest
-    needs: trigger_adblock_rule_generator_ruleset  # 确保在前一个job完成后运行
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Trigger and verify Run_AdBlock_Rule_Generator_DOMAINSET
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
-        run: |
-          workflow_id="Run_AdBlock_Rule_Generator_DOMAINSET.yml"
-          ref="main"
-          response=$(curl -X POST -H "Authorization: token $TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
-            -d "{\"ref\":\"$ref\"}")
-          echo "Triggered workflow $workflow_id: $response"
-
-          while : ; do
-            status=$(curl -s -H "Authorization: token $TOKEN" \
-              -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=in_progress&branch=$ref" \
-              | jq -r '.workflow_runs[0].status')
-
-            if [[ "$status" == "in_progress" ]]; then
-              echo "Workflow $workflow_id is running."
-              break
-            else
-              echo "Waiting for workflow $workflow_id to start..."
-              sleep 30
-            fi
-          done
-
-          sleep 90
-
-  # 触发 Convert TXT to CONF 工作流
-  trigger_convert_txt_to_conf:
-    runs-on: ubuntu-latest
-    needs: trigger_adblock_rule_generator_domainset
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Trigger and verify Convert TXT to CONF
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
-        run: |
-          workflow_id="Convert TXT to CONF.yml"
-          ref="main"
-          response=$(curl -X POST -H "Authorization: token $TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
-            -d "{\"ref\":\"$ref\"}")
-          echo "Triggered workflow $workflow_id: $response"
-
-          while : ; do
-            status=$(curl -s -H "Authorization: token $TOKEN" \
-              -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=in_progress&branch=$ref" \
-              | jq -r '.workflow_runs[0].status')
-
-            if [[ "$status" == "in_progress" ]]; then
-              echo "Workflow $workflow_id is running."
-              break
-            else
-              echo "Waiting for workflow $workflow_id to start..."
-              sleep 30
-            fi
-          done
-
-          sleep 90
-
-  # 触发 Convert TXT to LIST 工作流
-  trigger_convert_txt_to_list:
-    runs-on: ubuntu-latest
-    needs: trigger_convert_txt_to_conf
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Trigger and verify Convert TXT to LIST
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
-        run: |
-          workflow_id="Convert TXT to LIST.yml"
-          ref="main"
-          response=$(curl -X POST -H "Authorization: token $TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
-            -d "{\"ref\":\"$ref\"}")
-          echo "Triggered workflow $workflow_id: $response"
-
-          while : ; do
-            status=$(curl -s -H "Authorization: token $TOKEN" \
-              -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=in_progress&branch=$ref" \
-              | jq -r '.workflow_runs[0].status')
-
-            if [[ "$status" == "in_progress" ]]; then
-              echo "Workflow $workflow_id is running."
-              break
-            else
-              echo "Waiting for workflow $workflow_id to start..."
-              sleep 30
-            fi
-          done
-
-          sleep 90
-
-  # 触发 Convert TXT to YAML 工作流
-  trigger_convert_txt_to_yaml:
-    runs-on: ubuntu-latest
-    needs: trigger_convert_txt_to_list
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Trigger and verify Convert TXT to YAML
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
-        run: |
-          workflow_id="Convert TXT to YAML.yml"
-          ref="main"
-          response=$(curl -X POST -H "Authorization: token $TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
-            -d "{\"ref\":\"$ref\"}")
-          echo "Triggered workflow $workflow_id: $response"
-
-          while : ; do
-            status=$(curl -s -H "Authorization: token $TOKEN" \
-              -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=in_progress&branch=$ref" \
-              | jq -r '.workflow_runs[0].status')
-
-            if [[ "$status" == "in_progress" ]]; then
-              echo "Workflow $workflow_id is running."
-              break
-            else
-              echo "Waiting for workflow $workflow_id to start..."
-              sleep 30
-            fi
-          done
-
-          sleep 90
-
-  # 触发 Release_ADblock_file 工作流
-  trigger_release_adblock_file:
-    runs-on: ubuntu-latest
-    needs: trigger_convert_txt_to_yaml
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Trigger and verify Release_ADblock_file
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
-        run: |
-          workflow_id="Release_ADblock_file.yml"
-          ref="main"
-          response=$(curl -X POST -H "Authorization: token $TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
-            -d "{\"ref\":\"$ref\"}")
-          echo "Triggered workflow $workflow_id: $response"
-
-          while : ; do
-            status=$(curl -s -H "Authorization: token $TOKEN" \
-              -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=in_progress&branch=$ref" \
-              | jq -r '.workflow_runs[0].status')
-
-            if [[ "$status" == "in_progress" ]]; then
-              echo "Workflow $workflow_id is running."
-              break
-            else
-              echo "Waiting for workflow $workflow_id to start..."
-              sleep 30
-            fi
-          done
-
-          sleep 90
-
-  # 检查所有工作流是否成功完成
-  check_all_workflows:
-    runs-on: ubuntu-latest
-    needs: 
-      - trigger_adblock_rule_generator_ruleset
-      - trigger_adblock_rule_generator_domainset
-      - trigger_convert_txt_to_conf
-      - trigger_convert_txt_to_list
-      - trigger_convert_txt_to_yaml
-      - trigger_release_adblock_file
-    steps:
-      - name: Ensure all workflows succeeded
-        run: |
           echo "All workflows completed successfully"

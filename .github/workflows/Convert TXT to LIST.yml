@@ -1,0 +1,44 @@
+name: Convert TXT to LIST
+on:
+  schedule:
+    - cron: '*/20 * * * *'  # 每20分钟运行一次
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  rename-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      # 检出仓库
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # 重命名文件
+      - name: Rename files
+        run: |
+          mv adblock_reject_surge_ruleset.txt adblock_reject_surge_ruleset.list
+          mv adblock_reject_surge_domainset.txt adblock_reject_surge_domainset.list
+
+      # 提交并推送更改
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add adblock_reject_surge_ruleset.list adblock_reject_surge_domainset.list
+          git commit -m "Rename TXT to LIST" || exit 0
+          
+          # 推送错误重试机制
+          max_retries=5
+          retry_count=0
+          
+          until [ $retry_count -ge $max_retries ]
+          do
+            git push && break
+            retry_count=$((retry_count + 1))
+            echo "Push failed. Retry $retry_count/$max_retries in 30 seconds..."
+            sleep 30
+          done
+          
+          if [ $retry_count -ge $max_retries ]; then
+            echo "Failed to push changes after $max_retries attempts"
+            exit 1
+          fi

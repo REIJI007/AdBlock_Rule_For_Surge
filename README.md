@@ -117,19 +117,19 @@ RULE-SET,local:///path/to/your/rules.txt,REJECT  #你的外部本地拦截域名
 
 
 
-  *使用方式二：将下面对应格式的配置文件中[rule]字段内容添加到你的配置文件充当远程规则集，需要特别注意配置文件的缩进和对齐（同步本仓库的云端部署的远程规则集配置)*
+   *使用方式二：将下面对应格式的配置文件中[rule]字段内容添加到你的配置文件充当远程规则集，需要特别注意配置文件的缩进和对齐（同步本仓库的云端部署的远程规则集配置)*
 
 <hr>
 
 ```conf
 #适用于Surge的txt格式RULE-SET
 [Rule]
-RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.txt,REJECT
+RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.txt,REJECT
 ```
 ```conf
 #适用于Surge的txt格式DOMAIN-SET
 [Rule]
-DOMAIN-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.txt,REJECT
+DOMAIN-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.txt,REJECT
 ```
 
 
@@ -139,12 +139,12 @@ DOMAIN-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adbl
 ```conf
 #适用于Surge的conf格式RULE-SET
 [Rule]
-RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.conf,REJECT
+RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.conf,REJECT
 ```
 ```conf
 #适用于Surge的conf格式DOMAIN-SET
 [Rule]
-DOMAIN-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.conf,REJECT
+DOMAIN-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.conf,REJECT
 ```
 
 
@@ -154,12 +154,12 @@ DOMAIN-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adbl
 ```conf
 #适用于Surge的yaml格式RULE-SET
 [Rule]
-RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.yaml,REJECT
+RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.yaml,REJECT
 ```
 ```conf
 #适用于Surge的yaml格式DOMAIN-SET
 [Rule]
-DOMAIN-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.yaml,REJECT
+DOMAIN-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.yaml,REJECT
 ```
 
 
@@ -169,12 +169,12 @@ DOMAIN-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adbl
 ```conf
 #适用于Surge的list格式RULE-SET
 [Rule]
-RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.yaml,REJECT
+RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.list,REJECT
 ```
 ```conf
 #适用于Surge的list格式DOMAIN-SET
 [Rule]
-DOMAIN-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.list,REJECT
+DOMAIN-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.list,REJECT
 ```
 
 <hr>

@@ -141,6 +141,7 @@ RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adbloc
 [Rule]
 RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.conf,REJECT
 ```
+<hr>
 ```conf
 #适用于Surge的yaml格式RULE-SET
 [Rule]
@@ -156,6 +157,7 @@ RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adbloc
 [Rule]
 RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.yaml,REJECT
 ```
+<hr>
 ```conf
 #适用于Surge的list格式DOMAIN-SET
 [Rule]

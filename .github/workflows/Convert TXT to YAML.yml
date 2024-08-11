@@ -34,42 +34,33 @@ jobs:
               fi
             done < "$input_file"
 
-            # 如果文件中只有注释，确保还是添加 payload:
-            if ! $payload_inserted; then
-              echo "payload:" >> "$tmp_file"
-            fi
-
-            # 将处理后的内容移到最终文件
             mv "$tmp_file" "$output_file"
           }
 
-          process_file "adblock_reject_surge_ruleset.txt" "adblock_reject_surge_ruleset.yaml"
-          process_file "adblock_reject_surge_domainset.txt" "adblock_reject_surge_domainset.yaml"
+          # 处理并重命名文件
+          process_file "adblock_reject_shadowrocket_ruleset.txt" "adblock_reject_shadowrocket_ruleset.yaml"
 
       # 提交并推送更改
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add adblock_reject_surge_ruleset.yaml adblock_reject_surge_domainset.yaml
-          git commit -m "Process and rename TXT to YAML" || exit 0
-          
+          git add adblock_reject_shadowrocket_ruleset.yaml
+          git commit -m "Convert TXT to YAML" || exit 0
+
           # 推送错误重试机制
           max_retries=5
           retry_count=0
-          
-          while [ $retry_count -lt $max_retries ]; do
-            if git push; then
-              echo "Successfully pushed changes"
-              exit 0
-            else
-              echo "Push failed. Retrying in 30 seconds..."
-              sleep 30
-              retry_count=$((retry_count + 1))
-            fi
+
+          until [ $retry_count -ge $max_retries ]
+          do
+            git push && break
+            retry_count=$((retry_count + 1))
+            echo "Push failed. Retry $retry_count/$max_retries in 30 seconds..."
+            sleep 30
           done
-          
-          echo "Failed to push changes after $max_retries attempts"
-          exit 1
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
+
+          if [ $retry_count -ge $max_retries ]; then
+            echo "Failed to push changes after $max_retries attempts"
+            exit 1
+          fi

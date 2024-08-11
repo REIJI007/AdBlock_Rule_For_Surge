@@ -55,6 +55,18 @@
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.yaml*
 <br>
 
+*7、适用于Surged的外部远程域名list格式拦截RULE-SET规则集 adblock_reject_surge_ruleset.list* 
+<br>
+*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.list*
+*https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.list*
+<br>
+
+*8、适用于Surged的外部远程域名list格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.list* 
+<br>
+*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.list*
+*https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.list*
+<br>
+
 
 **二、理论上任何代理拦截域名且符合广告过滤器过滤语法的列表订阅URL都可加入此powershell脚本处理，请自行酌情添加过滤器订阅URL至adblock_rule_generator_surge.ps1脚本中进行处理，你可将该脚本代码复制到本地文本编辑器制作成.ps1后缀的文件运行在powershell上，注意修改生成的yaml文件路径，最后在surge的配置中实现调用本地生成的规则集文件，且surge配置字段写成类似于如下例子**
 <br>
@@ -66,7 +78,7 @@
 
 
 ```conf
-#适用于Surge的外部本地拦截域名lixt格式规则集
+#适用于Surge的外部本地拦截域名list格式规则集
 [Rule]
 RULE-SET,local:///path/to/your/rules.lixt,REJECT  #你的外部本地拦截域名txt格式规则集文件保存路径
 
@@ -138,6 +150,21 @@ RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adbloc
 #适用于Surge的yaml格式DOMAIN-SET
 [Rule]
 RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.yaml,REJECT
+```
+```conf
+#适用于Surge的yaml格式RULE-SET
+[Rule]
+RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.yaml,REJECT
+```
+```conf
+#适用于Surge的list格式DOMAIN-SET
+[Rule]
+RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.list,REJECT
+```
+```conf
+#适用于Surge的list格式RULE-SET
+[Rule]
+RULE-SET,https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.list,REJECT
 ```
 
 <hr>

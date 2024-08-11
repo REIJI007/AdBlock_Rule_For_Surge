@@ -19,10 +19,13 @@ jobs:
         run: |
           workflow_id="Run_AdBlock_Rule_Generator_RULESET.yml"
           ref="main"
-          # 触发工作流
+          url="https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches"
+          
+          echo "Triggering workflow at $url"
+
           response=$(curl -X POST -H "Authorization: token $TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
+            "$url" \
             -d "{\"ref\":\"$ref\"}")
           echo "Triggered workflow $workflow_id: $response"
 
@@ -61,10 +64,13 @@ jobs:
         run: |
           workflow_id="Run_AdBlock_Rule_Generator_DOMAINSET.yml"
           ref="main"
-          # 触发工作流
+          url="https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches"
+          
+          echo "Triggering workflow at $url"
+
           response=$(curl -X POST -H "Authorization: token $TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
+            "$url" \
             -d "{\"ref\":\"$ref\"}")
           echo "Triggered workflow $workflow_id: $response"
 
@@ -101,12 +107,15 @@ jobs:
         env:
           TOKEN: ${{ secrets.TOKEN }}
         run: |
-          workflow_id="Convert TXT to CONF.yml"
+          workflow_id="Convert_TXT_to_CONF.yml"
           ref="main"
-          # 触发工作流
+          url="https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches"
+          
+          echo "Triggering workflow at $url"
+
           response=$(curl -X POST -H "Authorization: token $TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
+            "$url" \
             -d "{\"ref\":\"$ref\"}")
           echo "Triggered workflow $workflow_id: $response"
 
@@ -143,12 +152,15 @@ jobs:
         env:
           TOKEN: ${{ secrets.TOKEN }}
         run: |
-          workflow_id="Convert TXT to LIST.yml"
+          workflow_id="Convert_TXT_to_LIST.yml"
           ref="main"
-          # 触发工作流
+          url="https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches"
+          
+          echo "Triggering workflow at $url"
+
           response=$(curl -X POST -H "Authorization: token $TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
+            "$url" \
             -d "{\"ref\":\"$ref\"}")
           echo "Triggered workflow $workflow_id: $response"
 
@@ -185,12 +197,15 @@ jobs:
         env:
           TOKEN: ${{ secrets.TOKEN }}
         run: |
-          workflow_id="Convert TXT to YAML.yml"
+          workflow_id="Convert_TXT_to_YAML.yml"
           ref="main"
-          # 触发工作流
+          url="https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches"
+          
+          echo "Triggering workflow at $url"
+
           response=$(curl -X POST -H "Authorization: token $TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
+            "$url" \
             -d "{\"ref\":\"$ref\"}")
           echo "Triggered workflow $workflow_id: $response"
 
@@ -223,16 +238,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Trigger and verify Release_ADblock_file
+      - name: Trigger and verify Release ADblock file
         env:
           TOKEN: ${{ secrets.TOKEN }}
         run: |
           workflow_id="Release_ADblock_file.yml"
           ref="main"
-          # 触发工作流
+          url="https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches"
+          
+          echo "Triggering workflow at $url"
+
           response=$(curl -X POST -H "Authorization: token $TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
+            "$url" \
             -d "{\"ref\":\"$ref\"}")
           echo "Triggered workflow $workflow_id: $response"
 
@@ -254,20 +272,3 @@ jobs:
               sleep 30
             fi
           done
-
-          # 等待90秒
-          sleep 90
-
-  check_all_workflows:
-    runs-on: ubuntu-latest
-    needs: 
-      - trigger_adblock_rule_generator_ruleset
-      - trigger_adblock_rule_generator_domainset
-      - trigger_convert_txt_to_conf
-      - trigger_convert_txt_to_list
-      - trigger_convert_txt_to_yaml
-      - trigger_release_adblock_file
-    steps:
-      - name: Ensure all workflows succeeded
-        run: |
-          echo "All workflows completed successfully"

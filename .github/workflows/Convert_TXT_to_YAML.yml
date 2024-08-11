@@ -1,4 +1,4 @@
-name: Convert TXT to YAML
+name: Convert_TXT_to_YAML
 on:
   schedule:
     - cron: '*/20 * * * *'  # 每20分钟运行一次

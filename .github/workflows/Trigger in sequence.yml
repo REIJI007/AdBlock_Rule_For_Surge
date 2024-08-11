@@ -19,18 +19,16 @@ jobs:
         run: |
           workflow_id="Run_AdBlock_Rule_Generator_RULESET.yml"
           ref="main"
-          # 触发工作流
           response=$(curl -X POST -H "Authorization: token $TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
             -d "{\"ref\":\"$ref\"}")
           echo "Triggered workflow $workflow_id: $response"
 
-          # 验证工作流成功触发
           while : ; do
             status=$(curl -s -H "Authorization: token $TOKEN" \
               -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?workflow_id=$workflow_id&status=in_progress&branch=$ref" \
+              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=in_progress&branch=$ref" \
               | jq -r '.workflow_runs[0].status')
 
             if [[ "$status" == "in_progress" ]]; then
@@ -42,7 +40,7 @@ jobs:
             fi
           done
 
-          # 等待90秒
+          # 等待工作流完成
           sleep 90
 
   trigger_adblock_rule_generator_domainset:
@@ -50,7 +48,7 @@ jobs:
     needs: trigger_adblock_rule_generator_ruleset
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # 检出仓库代码
+        uses: actions/checkout@v3
 
       - name: Trigger and verify Run_AdBlock_Rule_Generator_DOMAINSET
         env:
@@ -58,18 +56,16 @@ jobs:
         run: |
           workflow_id="Run_AdBlock_Rule_Generator_DOMAINSET.yml"
           ref="main"
-          # 触发工作流
           response=$(curl -X POST -H "Authorization: token $TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
             -d "{\"ref\":\"$ref\"}")
           echo "Triggered workflow $workflow_id: $response"
 
-          # 验证工作流成功触发
           while : ; do
             status=$(curl -s -H "Authorization: token $TOKEN" \
               -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?workflow_id=$workflow_id&status=in_progress&branch=$ref" \
+              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=in_progress&branch=$ref" \
               | jq -r '.workflow_runs[0].status')
 
             if [[ "$status" == "in_progress" ]]; then
@@ -81,7 +77,6 @@ jobs:
             fi
           done
 
-          # 等待90秒
           sleep 90
 
   trigger_convert_txt_to_yaml:
@@ -89,7 +84,7 @@ jobs:
     needs: trigger_adblock_rule_generator_domainset
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # 检出仓库代码
+        uses: actions/checkout@v3
 
       - name: Trigger and verify Convert TXT to YAML
         env:
@@ -97,18 +92,16 @@ jobs:
         run: |
           workflow_id="Convert TXT to YAML.yml"
           ref="main"
-          # 触发工作流
           response=$(curl -X POST -H "Authorization: token $TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
             -d "{\"ref\":\"$ref\"}")
           echo "Triggered workflow $workflow_id: $response"
 
-          # 验证工作流成功触发
           while : ; do
             status=$(curl -s -H "Authorization: token $TOKEN" \
               -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?workflow_id=$workflow_id&status=in_progress&branch=$ref" \
+              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=in_progress&branch=$ref" \
               | jq -r '.workflow_runs[0].status')
 
             if [[ "$status" == "in_progress" ]]; then
@@ -120,7 +113,6 @@ jobs:
             fi
           done
 
-          # 等待90秒
           sleep 90
 
   trigger_convert_txt_to_conf:
@@ -128,7 +120,7 @@ jobs:
     needs: trigger_convert_txt_to_yaml
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # 检出仓库代码
+        uses: actions/checkout@v3
 
       - name: Trigger and verify Convert TXT to CONF
         env:
@@ -136,18 +128,16 @@ jobs:
         run: |
           workflow_id="Convert TXT to CONF.yml"
           ref="main"
-          # 触发工作流
           response=$(curl -X POST -H "Authorization: token $TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
             -d "{\"ref\":\"$ref\"}")
           echo "Triggered workflow $workflow_id: $response"
 
-          # 验证工作流成功触发
           while : ; do
             status=$(curl -s -H "Authorization: token $TOKEN" \
               -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?workflow_id=$workflow_id&status=in_progress&branch=$ref" \
+              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=in_progress&branch=$ref" \
               | jq -r '.workflow_runs[0].status')
 
             if [[ "$status" == "in_progress" ]]; then
@@ -159,7 +149,6 @@ jobs:
             fi
           done
 
-          # 等待90秒
           sleep 90
 
   trigger_release_adblock_file:
@@ -167,7 +156,7 @@ jobs:
     needs: trigger_convert_txt_to_conf
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # 检出仓库代码
+        uses: actions/checkout@v3
 
       - name: Trigger and verify Release_ADblock_file
         env:
@@ -175,18 +164,16 @@ jobs:
         run: |
           workflow_id="Release_ADblock_file.yml"
           ref="main"
-          # 触发工作流
           response=$(curl -X POST -H "Authorization: token $TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches" \
             -d "{\"ref\":\"$ref\"}")
           echo "Triggered workflow $workflow_id: $response"
 
-          # 验证工作流成功触发
           while : ; do
             status=$(curl -s -H "Authorization: token $TOKEN" \
               -H "Accept: application/vnd.github.v3+json" \
-              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?workflow_id=$workflow_id&status=in_progress&branch=$ref" \
+              "https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/runs?status=in_progress&branch=$ref" \
               | jq -r '.workflow_runs[0].status')
 
             if [[ "$status" == "in_progress" ]]; then
@@ -198,7 +185,6 @@ jobs:
             fi
           done
 
-          # 等待90秒
           sleep 90
 
   check_all_workflows:

@@ -45,7 +45,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add adblock_reject_suger_ruleset.yaml
+          git add adblock_reject_surge_ruleset.yaml
           git commit -m "Convert TXT to YAML" || exit 0
 
           # 拉取远程仓库的最新更改并合并

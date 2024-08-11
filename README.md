@@ -19,49 +19,49 @@
 
 
 
-*1、适用于Surged的外部远程域名txt格式拦截RULE-SET规则集 adblock_reject_surge_ruleset.txt* 
+*1、适用于Surge的外部远程域名txt格式拦截RULE-SET规则集 adblock_reject_surge_ruleset.txt* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.txt*
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.txt*
 <br>
 
-*2、适用于Surged的外部远程域名txt格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.txt* 
+*2、适用于Surge的外部远程域名txt格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.txt* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.txt*
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.txt*
 <br>
 
-*3、适用于Surged的外部远程域名conf格式拦截RULE-SET规则集 adblock_reject_surge_ruleset.conf* 
+*3、适用于Surge的外部远程域名conf格式拦截RULE-SET规则集 adblock_reject_surge_ruleset.conf* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.conf*
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.conf*
 <br>
 
-*4、适用于Surged的外部远程域名conf格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.conf* 
+*4、适用于Surge的外部远程域名conf格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.conf* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.conf*
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.conf*
 <br>
 
-*5、适用于Surged的外部远程域名yaml格式拦截RULE-SET规则集 adblock_reject_surge_ruleset.yaml* 
+*5、适用于Surge的外部远程域名yaml格式拦截RULE-SET规则集 adblock_reject_surge_ruleset.yaml* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.yaml*
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.yaml*
 <br>
 
-*6、适用于Surged的外部远程域名yaml格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.yaml* 
+*6、适用于Surge的外部远程域名yaml格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.yaml* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.yaml*
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.yaml*
 <br>
 
-*7、适用于Surged的外部远程域名list格式拦截RULE-SET规则集 adblock_reject_surge_ruleset.list* 
+*7、适用于Surge的外部远程域名list格式拦截RULE-SET规则集 adblock_reject_surge_ruleset.list* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.list*
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.list*
 <br>
 
-*8、适用于Surged的外部远程域名list格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.list* 
+*8、适用于Surge的外部远程域名list格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.list* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.list*
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.list*

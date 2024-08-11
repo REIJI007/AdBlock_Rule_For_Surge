@@ -113,3 +113,25 @@ jobs:
           asset_path: ./adblock_reject_surge_ruleset.yaml
           asset_name: adblock_reject_surge_ruleset.yaml
           asset_content_type: application/x-yaml
+
+      # 步骤12：上传adblock_reject_surge_domainset.list
+      - name: Upload adblock_reject_surge_domainset.list
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./adblock_reject_surge_domainset.list
+          asset_name: adblock_reject_surge_domainset.list
+          asset_content_type: text/plain
+
+      # 步骤13：上传adblock_reject_surge_ruleset.list
+      - name: Upload adblock_reject_surge_ruleset.list
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./adblock_reject_surge_ruleset.list
+          asset_name: adblock_reject_surge_ruleset.list
+          asset_content_type: text/plain

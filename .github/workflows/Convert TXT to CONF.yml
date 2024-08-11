@@ -30,18 +30,15 @@ jobs:
           max_retries=5
           retry_count=0
           
-          while [ $retry_count -lt $max_retries ]; do
-            if git push; then
-              echo "Successfully pushed changes"
-              exit 0
-            else
-              echo "Push failed. Retrying in 30 seconds..."
-              sleep 30
-              retry_count=$((retry_count + 1))
-            fi
+          until [ $retry_count -ge $max_retries ]
+          do
+            git push && break
+            retry_count=$((retry_count + 1))
+            echo "Push failed. Retry $retry_count/$max_retries in 30 seconds..."
+            sleep 30
           done
           
-          echo "Failed to push changes after $max_retries attempts"
-          exit 1
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
+          if [ $retry_count -ge $max_retries ]; then
+            echo "Failed to push changes after $max_retries attempts"
+            exit 1
+          fi

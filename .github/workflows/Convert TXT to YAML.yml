@@ -48,6 +48,9 @@ jobs:
           git add adblock_reject_shadowrocket_ruleset.yaml
           git commit -m "Convert TXT to YAML" || exit 0
 
+          # 拉取远程仓库的最新更改并合并
+          git pull --rebase
+
           # 推送错误重试机制
           max_retries=5
           retry_count=0

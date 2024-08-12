@@ -15,29 +15,15 @@
     <img src="https://img.shields.io/github/license/REIJI007/AdBlock_Rule_For_Surge" alt="license" style="margin-right: 10px;">
 </p>
 
-**一、从多个广告过滤器中提取拦截域名条目，删除重复项，并将它们转换为兼容Surge的列表格式，其中列表的每一项都写成了Matcher Ruleset格式数组，一行仅一条规则，其中YAML文件是payload列表。该列表可以用作Surge的RULE-SET和DOMAIN-SET以阻止广告域名， powershell脚本每20分钟自动执行并将生成的文件发布在release中,下面是4个规则集文件地址.**
+**一、从多个广告过滤器中提取拦截域名条目，删除重复项，并将它们转换为兼容Surge的列表格式，其中列表的每一项都写成了Matcher Ruleset格式数组，一行仅一条规则，其中YAML文件是payload列表。该列表可以用作Surge的RULE-SET和DOMAIN-SET以阻止广告域名， powershell脚本每20分钟自动执行并将生成的文件发布在release中,下面是2个规则集文件地址.**
 
-
-
-*1、适用于Surge的外部远程域名txt格式拦截RULE-SET规则集 adblock_reject_surge_ruleset.txt* 
-<br>
-*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.txt*
-*https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.txt*
-<br>
-
-*2、适用于Surge的外部远程域名txt格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.txt* 
-<br>
-*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.txt*
-*https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.txt*
-<br>
-
-*3、适用于Surge的外部远程域名list格式拦截RULE-SET规则集 adblock_reject_surge_ruleset.list* 
+*1、适用于Surge的外部远程域名list格式拦截RULE-SET规则集 adblock_reject_surge_ruleset.list* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.list*
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.list*
 <br>
 
-*4、适用于Surge的外部远程域名list格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.list* 
+*2、适用于Surge的外部远程域名list格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.list* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.list*
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.list*
@@ -60,21 +46,9 @@ RULE-SET,local:///path/to/your/rules.lixt,REJECT  #你的外部本地拦截域�
 [Rule]
 DOMAIN-SET,local:///path/to/your/rules.lixt,REJECT  #你的外部本地拦截域名txt格式规则集文件保存路径
 ```
-<hr>
-<hr>
 
 
 
-```conf
-#适用于Surge的外部本地拦截域名txt格式RULE-SET规则集
-[Rule]
-RULE-SET,local:///path/to/your/rules.txt,REJECT  #你的外部本地拦截域名yaml格式规则集文件保存路径
-```
-```conf
-#适用于Surge的外部本地拦截域名txt格式DOMAIN-SET规则集
-[Rule]
-DOMAIN-SET,local:///path/to/your/rules.txt,REJECT  #你的外部本地拦截域名yaml格式规则集文件保存路径
-```
 <hr>
 
 **三、本仓库引用多个广告过滤器，从这些广告过滤器中提取了被拦截条目的域名，剔除了非拦截项并去重，最后做成Matcher Ruleset列表，虽无法做到面面俱到但能减少广告带来的困扰，请自行斟酌考虑使用。碍于surge的路由行为且秉持着尽可能不误杀的原则，本仓库采取域名完全匹配策略，即匹配命中于拦截列表上的域名完全一致时触发拦截，除此之外的情况给予放行。尽管这会有许多漏网之鱼的广告被放行**
@@ -89,21 +63,6 @@ DOMAIN-SET,local:///path/to/your/rules.txt,REJECT  #你的外部本地拦截域�
 
    *使用方式二：将下面对应格式的配置文件中[rule]字段内容添加到你的配置文件充当远程规则集，需要特别注意配置文件的缩进和对齐（同步本仓库的云端部署的远程规则集配置)*
 
-<hr>
-
-```conf
-#适用于Surge的txt格式RULE-SET
-[Rule]
-RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.txt,REJECT
-```
-```conf
-#适用于Surge的txt格式DOMAIN-SET
-[Rule]
-DOMAIN-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.txt,REJECT
-```
-
-
-<hr>
 <hr>
 
 

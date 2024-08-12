@@ -73,6 +73,7 @@
 <br>
 *简而言之就是可以让你DIY出希望得到的拦截域名Matcher Ruleset列表，缺点是此做法只适合本地定制使用，当然你也可以像本仓库一样部署到GitHub上面，见仁见智*
 <hr>
+
 ```conf
 #适用于Surge的外部本地拦截域名list格式RULE-SET规则集
 [Rule]
@@ -85,6 +86,8 @@ DOMAIN-SET,local:///path/to/your/rules.lixt,REJECT  #你的外部本地拦截域
 ```
 <hr>
 <hr>
+
+
 ```conf
 #适用于Surge的外部本地拦截域名conf格式RULE-SET规则集
 [Rule]
@@ -97,6 +100,8 @@ DOMAIN-SET,local:///path/to/your/rules.conf,REJECT  #你的外部本地拦截域
 ```
 <hr>
 <hr>
+
+
 ```conf
 #适用于Surge的外部本地拦截域名yaml格式RULE-SET规则集
 [Rule]
@@ -109,6 +114,8 @@ DOMAIN-SET,local:///path/to/your/rules.yaml,REJECT  #你的外部本地拦截域
 ```
 <hr>
 <hr>
+
+
 ```conf
 #适用于Surge的外部本地拦截域名txt格式RULE-SET规则集
 [Rule]

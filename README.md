@@ -39,12 +39,12 @@
 ```conf
 #适用于Surge的外部本地拦截域名list格式RULE-SET规则集
 [Rule]
-RULE-SET,local:///path/to/your/rules.lixt,REJECT  #你的外部本地拦截域名txt格式规则集文件保存路径
+RULE-SET,local:///path/to/your/rules.list,REJECT  #你的外部本地拦截域名txt格式规则集文件保存路径
 ```
 ```conf
 #适用于Surge的外部本地拦截域名list格式DOMAIN-SET规则集
 [Rule]
-DOMAIN-SET,local:///path/to/your/rules.lixt,REJECT  #你的外部本地拦截域名txt格式规则集文件保存路径
+DOMAIN-SET,local:///path/to/your/rules.list,REJECT  #你的外部本地拦截域名txt格式规则集文件保存路径
 ```
 
 

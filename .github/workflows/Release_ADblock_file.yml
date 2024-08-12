@@ -48,30 +48,9 @@ jobs:
           body: "Periodic release of adblock files."  # 发布说明
           draft: false  # 创建正式发布，而非草稿
 
-      # 步骤6：上传adblock_reject_surge_domainset.txt
-      - name: Upload adblock_reject_surge_domainset.txt
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}  # 使用创建发布时生成的URL
-          asset_path: ./adblock_reject_surge_domainset.txt
-          asset_name: adblock_reject_surge_domainset.txt
-          asset_content_type: text/plain
-
-      # 步骤7：上传adblock_reject_surge_ruleset.txt
-      - name: Upload adblock_reject_surge_ruleset.txt
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}  # 使用创建发布时生成的URL
-          asset_path: ./adblock_reject_surge_ruleset.txt
-          asset_name: adblock_reject_surge_ruleset.txt
-          asset_content_type: text/plain
 
     
-      # 步骤8：上传adblock_reject_surge_domainset.list
+      # 步骤6：上传adblock_reject_surge_domainset.list
       - name: Upload adblock_reject_surge_domainset.list
         uses: actions/upload-release-asset@v1
         env:
@@ -82,7 +61,7 @@ jobs:
           asset_name: adblock_reject_surge_domainset.list
           asset_content_type: text/plain
 
-      # 步骤9：上传adblock_reject_surge_ruleset.list
+      # 步骤7：上传adblock_reject_surge_ruleset.list
       - name: Upload adblock_reject_surge_ruleset.list
         uses: actions/upload-release-asset@v1
         env:

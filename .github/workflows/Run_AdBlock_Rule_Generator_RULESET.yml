@@ -31,10 +31,6 @@ jobs:
     - name: Run adblock_rule_generator_surge_ruleset.ps1  # 运行 adblock_rule_generator_surge_ruleset.ps1 脚本
       run: pwsh -File ./adblock_rule_generator_surge_ruleset.ps1  # 使用 PowerShell 7 运行脚本
 
-    - name: Rename output file  # 重命名生成的文件
-      run: |
-        mv adblock_reject_surge_ruleset.txt adblock_reject_surge_ruleset.list  # 将文件重命名为 adblock_reject_surge_ruleset.list
-
     - name: Force Add and Commit LIST file  # 强制添加并提交 LIST 文件
       run: |
         git config --global user.name 'github-actions'  # 配置提交用户名

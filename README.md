@@ -70,12 +70,12 @@ DOMAIN-SET,local:///path/to/your/rules.list,REJECT  #你的外部本地拦截域
 ```conf
 #适用于Surge的list格式RULE-SET
 [Rule]
-RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.list,REJECT
+RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.list,REJECT,update-interval=120
 ```
 ```conf
 #适用于Surge的list格式DOMAIN-SET
 [Rule]
-DOMAIN-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.list,REJECT
+DOMAIN-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.list,REJECT,update-interval=120
 ```
 
 <hr>

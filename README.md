@@ -89,6 +89,7 @@ RULE-SET,local:///path/to/your/rules.lixt,REJECT  #你的外部本地拦截域�
 DOMAIN-SET,local:///path/to/your/rules.lixt,REJECT  #你的外部本地拦截域名txt格式规则集文件保存路径
 
 ```
+<hr>
 ```conf
 #适用于Surge的外部本地拦截域名conf格式RULE-SET规则集
 [Rule]
@@ -101,6 +102,7 @@ RULE-SET,local:///path/to/your/rules.conf,REJECT  #你的外部本地拦截域�
 DOMAIN-SET,local:///path/to/your/rules.conf,REJECT  #你的外部本地拦截域名conf格式规则集文件保存路径
 
 ```
+<hr>
 ```conf
 #适用于Surge的外部本地拦截域名yaml格式RULE-SET规则集
 [Rule]
@@ -113,6 +115,7 @@ RULE-SET,local:///path/to/your/rules.yaml,REJECT  #你的外部本地拦截域�
 DOMAIN-SET,local:///path/to/your/rules.yaml,REJECT  #你的外部本地拦截域名yaml格式规则集文件保存路径
 
 ```
+<hr>
 ```conf
 #适用于Surge的外部本地拦截域名txt格式RULE-SET规则集
 [Rule]

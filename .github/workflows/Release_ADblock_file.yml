@@ -70,51 +70,8 @@ jobs:
           asset_name: adblock_reject_surge_ruleset.txt
           asset_content_type: text/plain
 
-      # 步骤8：上传adblock_reject_surge_domainset.conf
-      - name: Upload adblock_reject_surge_domainset.conf
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./adblock_reject_surge_domainset.conf
-          asset_name: adblock_reject_surge_domainset.conf
-          asset_content_type: text/plain
-
-      # 步骤9：上传adblock_reject_surge_ruleset.conf
-      - name: Upload adblock_reject_surge_ruleset.conf
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./adblock_reject_surge_ruleset.conf
-          asset_name: adblock_reject_surge_ruleset.conf
-          asset_content_type: text/plain
-
-      # 步骤10：上传adblock_reject_surge_domainset.yaml
-      - name: Upload adblock_reject_surge_domainset.yaml
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./adblock_reject_surge_domainset.yaml
-          asset_name: adblock_reject_surge_domainset.yaml
-          asset_content_type: application/x-yaml
-
-      # 步骤11：上传adblock_reject_surge_ruleset.yaml
-      - name: Upload adblock_reject_surge_ruleset.yaml
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./adblock_reject_surge_ruleset.yaml
-          asset_name: adblock_reject_surge_ruleset.yaml
-          asset_content_type: application/x-yaml
-
-      # 步骤12：上传adblock_reject_surge_domainset.list
+    
+      # 步骤8：上传adblock_reject_surge_domainset.list
       - name: Upload adblock_reject_surge_domainset.list
         uses: actions/upload-release-asset@v1
         env:
@@ -125,7 +82,7 @@ jobs:
           asset_name: adblock_reject_surge_domainset.list
           asset_content_type: text/plain
 
-      # 步骤13：上传adblock_reject_surge_ruleset.list
+      # 步骤9：上传adblock_reject_surge_ruleset.list
       - name: Upload adblock_reject_surge_ruleset.list
         uses: actions/upload-release-asset@v1
         env:

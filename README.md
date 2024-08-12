@@ -73,10 +73,6 @@
 <br>
 *简而言之就是可以让你DIY出希望得到的拦截域名Matcher Ruleset列表，缺点是此做法只适合本地定制使用，当然你也可以像本仓库一样部署到GitHub上面，见仁见智*
 <hr>
-
-
-
-
 ```conf
 #适用于Surge的外部本地拦截域名list格式RULE-SET规则集
 [Rule]
@@ -90,6 +86,7 @@ DOMAIN-SET,local:///path/to/your/rules.lixt,REJECT  #你的外部本地拦截域
 
 ```
 <hr>
+<hr>
 ```conf
 #适用于Surge的外部本地拦截域名conf格式RULE-SET规则集
 [Rule]
@@ -100,8 +97,8 @@ RULE-SET,local:///path/to/your/rules.conf,REJECT  #你的外部本地拦截域�
 #适用于Surge的外部本地拦截域名conf格式DOMAIN-SET规则集
 [Rule]
 DOMAIN-SET,local:///path/to/your/rules.conf,REJECT  #你的外部本地拦截域名conf格式规则集文件保存路径
-
 ```
+<hr>
 <hr>
 ```conf
 #适用于Surge的外部本地拦截域名yaml格式RULE-SET规则集
@@ -113,25 +110,19 @@ RULE-SET,local:///path/to/your/rules.yaml,REJECT  #你的外部本地拦截域�
 #适用于Surge的外部本地拦截域名yaml格式DOMAIN-SET规则集
 [Rule]
 DOMAIN-SET,local:///path/to/your/rules.yaml,REJECT  #你的外部本地拦截域名yaml格式规则集文件保存路径
-
 ```
+<hr>
 <hr>
 ```conf
 #适用于Surge的外部本地拦截域名txt格式RULE-SET规则集
 [Rule]
 RULE-SET,local:///path/to/your/rules.txt,REJECT  #你的外部本地拦截域名yaml格式规则集文件保存路径
-
 ```
 ```conf
 #适用于Surge的外部本地拦截域名txt格式DOMAIN-SET规则集
 [Rule]
 DOMAIN-SET,local:///path/to/your/rules.txt,REJECT  #你的外部本地拦截域名yaml格式规则集文件保存路径
-
 ```
-
-
-
-
 <hr>
 
 **三、本仓库引用多个广告过滤器，从这些广告过滤器中提取了被拦截条目的域名，剔除了非拦截项并去重，最后做成Matcher Ruleset列表，虽无法做到面面俱到但能减少广告带来的困扰，请自行斟酌考虑使用。碍于surge的路由行为且秉持着尽可能不误杀的原则，本仓库采取域名完全匹配策略，即匹配命中于拦截列表上的域名完全一致时触发拦截，除此之外的情况给予放行。尽管这会有许多漏网之鱼的广告被放行**

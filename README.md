@@ -83,7 +83,7 @@ DOMAIN-SET,local:///path/to/your/rules.txt,REJECT  #你的外部本地拦截域�
 
 **四、关于本仓库使用方式：**
 
-  *使用方式一：下载releases中的adblock_reject_surge_ruleset.txt文件或者adblock_reject_surge_domainset.txt，里面的内容可直接粘贴到Surge的配置中的[rules]字段下作为拦截规则（需要手动下载更新）*
+  *使用方式一：下载releases中的文件，并修改你的Surge配置文件[rule]字段进行本地引用规则集文件（需要时常手动下载更新）*
 
 
 

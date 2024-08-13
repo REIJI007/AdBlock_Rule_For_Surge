@@ -104,7 +104,7 @@ $textContent | Out-File -FilePath $outputPath -Encoding utf8
 
 # 输出生成的有效规则总数
 Write-Host "生成的有效规则总数: $ruleCount"
-Add-Content -Path $logFilePath -Value "生成的有效规则总数: $ruleCount"
-Add-Content -Path $logFilePath -Value "生成时间: $generationTime"
+Add-Content -Path $logFilePath -Value "Total entries: $ruleCount"
+Add-Content -Path $logFilePath -Value "Generated at: $generationTime"
 
 Pause

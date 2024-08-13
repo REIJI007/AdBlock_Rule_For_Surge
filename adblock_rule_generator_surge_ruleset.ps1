@@ -80,8 +80,8 @@ $formattedRules = $uniqueRules | Sort-Object | ForEach-Object {"DOMAIN,$_"}
 # 统计生成的规则条目数量
 $ruleCount = $uniqueRules.Count
 
-# 获取当前时间
-$generationTime = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+# 获取当前时间并转换为东八区时间
+$generationTime = (Get-Date).ToUniversalTime().AddHours(8).ToString("yyyy-MM-dd HH:mm:ss")
 
 # 创建文本格式的字符串
 $textContent = @"

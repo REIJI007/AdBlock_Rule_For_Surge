@@ -80,6 +80,9 @@ $formattedRules = $uniqueRules | Sort-Object
 # 统计生成的规则条目数量
 $ruleCount = $uniqueRules.Count
 
+# 获取当前时间并转换为东八区时间
+$generationTime = (Get-Date).ToUniversalTime().AddHours(8).ToString("yyyy-MM-dd HH:mm:ss")
+
 # 创建文本格式的字符串
 $textContent = @"
 # Title: AdBlock_Rule_For_Surge_DOMAINSET
@@ -87,6 +90,7 @@ $textContent = @"
 # Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Surge
 # LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-GPL3.0
 # LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-CC%20BY-NC-SA%204.0
+# 生成时间: $generationTime
 
 # Generated AdBlock rules
 # Total entries: $ruleCount
@@ -101,5 +105,6 @@ $textContent | Out-File -FilePath $outputPath -Encoding utf8
 # 输出生成的有效规则总数
 Write-Host "生成的有效规则总数: $ruleCount"
 Add-Content -Path $logFilePath -Value "生成的有效规则总数: $ruleCount"
+Add-Content -Path $logFilePath -Value "生成时间: $generationTime"
 
 Pause

@@ -58,7 +58,26 @@ foreach ($url in $urlList) {
         $lines = $content -split "`n"
 
         foreach ($line in $lines) {
-            if ($line -match '^\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$' -or $line -match '^(0\.0\.0\.0|127\.0\.0\.1)\s+([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$' -or $line -match '^address=/([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/$') {
+            # 匹配 Adblock/Easylist 格式的规则
+            if ($line -match '^\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$') {
+                $domain = $Matches[1]
+                if ($domain -match '^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$' -and $domain.Length -le 50) {
+                    $uniqueRules.Add($domain) | Out-Null
+                } else {
+                    Add-Content -Path $logFilePath -Value "无效或超长域名: $domain"
+                }
+            }
+            # 匹配 Hosts 文件格式的规则
+            elseif ($line -match '^(0\.0\.0\.0|127\.0\.0\.1)\s+([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$') {
+                $domain = $Matches[2]
+                if ($domain -match '^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$' -and $domain.Length -le 50) {
+                    $uniqueRules.Add($domain) | Out-Null
+                } else {
+                    Add-Content -Path $logFilePath -Value "无效或超长域名: $domain"
+                }
+            }
+            # 匹配 Dnsmasq/AdGuard 格式的规则
+            elseif ($line -match '^address=/([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/$') {
                 $domain = $Matches[1]
                 if ($domain -match '^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$' -and $domain.Length -le 50) {
                     $uniqueRules.Add($domain) | Out-Null
@@ -77,6 +96,7 @@ foreach ($url in $urlList) {
 # 对规则进行排序
 $formattedRules = $uniqueRules | Sort-Object
 
+
 # 统计生成的规则条目数量
 $ruleCount = $uniqueRules.Count
 
@@ -85,8 +105,8 @@ $generationTime = (Get-Date).ToUniversalTime().AddHours(8).ToString("yyyy-MM-dd 
 
 # 创建文本格式的字符串
 $textContent = @"
-# Title: AdBlock_Rule_For_Surge_DOMAINSET
-# Description: 适用于Surge的域名拦截DOMAIN-SET，每20分钟更新一次，确保即时同步上游减少误杀
+# Title: AdBlock_Rule_For_Surge_RULESET
+# Description: 适用于Surge的域名拦截RULE-SET，每20分钟更新一次，确保即时同步上游减少误杀
 # Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Surge
 # LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-GPL3.0
 # LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-CC%20BY-NC-SA%204.0

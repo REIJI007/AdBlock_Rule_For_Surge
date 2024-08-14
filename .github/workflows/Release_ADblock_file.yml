@@ -30,16 +30,20 @@ jobs:
         env:
           TOKEN: ${{ secrets.TOKEN }}
 
-      - name: Check if tag exists
+      - name: Check if tag exists and delete
         id: check_tag
         run: |
-          if git rev-parse -q --verify "refs/tags/release-${{ env.time }}"; then
-            echo "Tag exists."
-            git tag -d release-${{ env.time }}
-            git push origin :refs/tags/release-${{ env.time }}
+          TAG="release-${{ env.time }}"
+          if git rev-parse -q --verify "refs/tags/$TAG"; then
+            echo "Tag exists. Deleting tag $TAG."
+            git tag -d "$TAG"
+            git push origin --delete "$TAG"
           else
             echo "Tag does not exist."
           fi
+
+      - name: Fetch tags
+        run: git fetch --tags
 
       - name: Create Release
         id: create_release

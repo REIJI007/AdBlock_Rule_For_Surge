@@ -52,7 +52,10 @@ RULE-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名
 [Rule]
 DOMAIN-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名list格式规则集文件保存路径
 ```
-
+```conf
+#在Surge中引用本地拦截域名模块
+#!include local_module.sgmodule  #你的本地拦截域名模块的路径
+```
 
 
 <hr>
@@ -63,15 +66,13 @@ DOMAIN-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域�
 
 **四、关于本仓库使用方式：**
 
-  *使用方式一：下载releases中的文件，并修改你的Surge配置文件[rule]字段进行本地引用规则集文件（需要时常手动下载更新）*
+  *使用方式一：下载releases中的文件，并修改你的Surge配置文件[rule]字段进行本地引用规则集文件（需要时常手动下载更新）,或者在配置文件中直接引用下载好的本地域名拦截模块*
 
 
 
-   *使用方式二：将下面对应格式的配置文件中[rule]字段内容添加到你的配置文件充当远程规则集，需要特别注意配置文件的缩进和对齐（同步本仓库的云端部署的远程规则集配置)*
+   *使用方式二：将下面对应格式的配置文件中[rule]字段内容添加到你的配置文件充当远程规则集，需要特别注意配置文件的缩进和对齐（同步本仓库的云端部署的远程规则集配置)，或者在配置文件中使用远程域名拦截模块*
 
 <hr>
-
-
 
 ```conf
 #适用于Surge的list格式RULE-SET
@@ -83,7 +84,10 @@ RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/
 [Rule]
 DOMAIN-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.list,REJECT,update-interval=120
 ```
-
+```conf
+#在Surge中引用远程拦截域名模块
+#!include https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_module.sgmodule, interval=120
+```
 <hr>
 
 

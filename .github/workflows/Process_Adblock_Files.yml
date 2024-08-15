@@ -37,7 +37,7 @@ jobs:
               with open(input_file, 'r') as f:
                   lines = f.readlines()
 
-              processed_lines = []
+              processed_lines = ["[rule]\n"]  # 添加 [rule] 标记
               item_count = 0  # 统计条目数量
 
               # 处理每一行

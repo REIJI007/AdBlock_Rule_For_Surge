@@ -54,3 +54,14 @@ jobs:
           asset_path: ./adblock_reject_surge_domainset.list
           asset_name: adblock_reject_surge_domainset.list
           asset_content_type: text/plain
+
+      # 步骤6：上传 adblock_reject_surge_module.list 文件
+      - name: Upload adblock_reject_surge_module.list
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用 TOKEN 进行身份验证
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./adblock_reject_surge_module.list
+          asset_name: adblock_reject_surge_module.list
+          asset_content_type: text/plain

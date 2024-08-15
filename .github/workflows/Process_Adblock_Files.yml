@@ -42,10 +42,8 @@ jobs:
 
               # 处理每一行
               for line in lines:
-                  # 保留注释
-                  if line.strip().startswith('#'):
-                      processed_lines.append(line)
-                  else:
+                  # 忽略注释行
+                  if not line.strip().startswith('#'):
                       # 处理非注释行
                       line = line.strip()
                       if line:

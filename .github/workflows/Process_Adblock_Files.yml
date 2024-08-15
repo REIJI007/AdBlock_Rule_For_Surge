@@ -75,7 +75,11 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add adblock_reject_surge_module.list
-          git commit -m "Process adblock file" || echo "No changes to commit"
-          git push
+
+          # 使用当前时间生成一个随机值，确保每次都能创建新的提交
+          RANDOM_COMMIT_MSG=$(date +%s)
+          git commit -m "Force commit: $RANDOM_COMMIT_MSG"
+          
+          git push --force  # 使用 --force 参数来强制推送
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用名为 TOKEN 的 secret 进行身份验证

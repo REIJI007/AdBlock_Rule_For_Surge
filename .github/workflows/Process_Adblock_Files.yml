@@ -66,7 +66,7 @@ jobs:
                   f.writelines(header + processed_lines)
 
           # 处理 list 文件
-          process_file('adblock_reject_surge_ruleset.list', 'adblock_reject_surge_module.list')
+          process_file('adblock_reject_surge_ruleset.list', 'adblock_reject_surge_module.sgmodule')
         shell: python
 
       # 步骤3：提交并推送更改
@@ -74,7 +74,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add adblock_reject_surge_module.list
+          git add adblock_reject_surge_module.sgmodule
 
           # 使用当前时间生成一个随机值，确保每次都能创建新的提交
           RANDOM_COMMIT_MSG=$(date +%s)

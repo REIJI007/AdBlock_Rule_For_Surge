@@ -105,8 +105,8 @@ $generationTime = (Get-Date).ToUniversalTime().AddHours(8).ToString("yyyy-MM-dd 
 
 # 创建文本格式的字符串
 $textContent = @"
-# Title: AdBlock_Rule_For_Surge_RULESET
-# Description: 适用于Surge的域名拦截RULE-SET，每20分钟更新一次，确保即时同步上游减少误杀
+# Title: AdBlock_Rule_For_Surge_DOMAINSET
+# Description: 适用于Surge的域名拦截DOMAIN-SET，每20分钟更新一次，确保即时同步上游减少误杀
 # Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Surge
 # LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-GPL3.0
 # LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-CC%20BY-NC-SA%204.0

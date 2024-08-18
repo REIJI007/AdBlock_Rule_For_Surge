@@ -105,7 +105,6 @@ $textContent = @"
 # LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-GPL3.0
 # LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-CC%20BY-NC-SA%204.0
 # 生成时间: $generationTime
-
 # Generated AdBlock rules
 # Total entries: $ruleCount
 

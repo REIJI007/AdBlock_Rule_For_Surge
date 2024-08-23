@@ -42,11 +42,6 @@
 RULE-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名list格式规则集文件保存路径
 ```
 ```conf
-#适用于Surge的外部本地拦截域名list格式DOMAINSUFFIX-SET规则集
-[Rule]
-DOMAIN-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名list格式规则集文件保存路径
-```
-```conf
 #在Surge中引用本地拦截域名模块
 #!include local_module.sgmodule  #你的本地拦截域名模块的路径
 ```

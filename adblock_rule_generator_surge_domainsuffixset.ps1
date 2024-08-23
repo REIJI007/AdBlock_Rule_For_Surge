@@ -1,5 +1,5 @@
-# Title: AdBlock_Rule_For_Surge_DOMAINSET
-# Description: 适用于Surge的域名拦截DOMAIN-SET，每20分钟更新一次，确保即时同步上游减少误杀
+# Title: AdBlock_Rule_For_Surge_DOMAINSUFFIXSET
+# Description: 适用于Surge的域名拦截DOMAINSUFFIX-SET，每20分钟更新一次，确保即时同步上游减少误杀
 # Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Surge
 
 # 定义广告过滤器URL列表
@@ -102,8 +102,8 @@ $generationTime = (Get-Date).ToUniversalTime().AddHours(8).ToString("yyyy-MM-dd 
 
 # 创建文本格式的字符串
 $textContent = @"
-# Title: AdBlock_Rule_For_Surge_DOMAINSET
-# Description: 适用于Surge的域名拦截DOMAIN-SET，每20分钟更新一次，确保即时同步上游减少误杀
+# Title: AdBlock_Rule_For_Surge_DOMAINSUFFIXSET
+# Description: 适用于Surge的域名拦截DOMAINSUFFIX-SET，每20分钟更新一次，确保即时同步上游减少误杀
 # Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Surge
 # LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-GPL3.0
 # LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-CC%20BY-NC-SA%204.0
@@ -115,7 +115,7 @@ $($formattedRules -join "`n")
 "@
 
 # 定义输出文件路径
-$outputPath = "$PSScriptRoot/adblock_reject_surge_domainset.list"
+$outputPath = "$PSScriptRoot/adblock_reject_surge_domainsuffixset.list"
 $textContent | Out-File -FilePath $outputPath -Encoding utf8
 
 # 输出生成的有效规则总数

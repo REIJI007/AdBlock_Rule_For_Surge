@@ -23,10 +23,10 @@
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_ruleset.list*
 <br>
 <br>
-*2、适用于Surge的外部远程域名list格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainset.list* 
+*2、适用于Surge的外部远程域名list格式拦截DOMAIN-SET规则集 adblock_reject_surge_domainsuffixset.list* 
 <br>
-*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.list*
-*https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainset.list*
+*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainsuffixset.list*
+*https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Surge@main/adblock_reject_surge_domainsuffixset.list*
 <br>
 <br>
 *3、适用于Surge的外部远程域名拦截模块 adblock_reject_surge_module.sgmodule* 
@@ -48,7 +48,7 @@
 RULE-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名list格式规则集文件保存路径
 ```
 ```conf
-#适用于Surge的外部本地拦截域名list格式DOMAIN-SET规则集
+#适用于Surge的外部本地拦截域名list格式DOMAINSUFFIX-SET规则集
 [Rule]
 DOMAIN-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名list格式规则集文件保存路径
 ```
@@ -80,9 +80,9 @@ DOMAIN-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域�
 RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.list,REJECT,update-interval=120
 ```
 ```conf
-#适用于Surge的list格式DOMAIN-SET
+#适用于Surge的list格式DOMAINSUFFIX-SET
 [Rule]
-DOMAIN-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainset.list,REJECT,update-interval=120
+DOMAIN-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_domainsuffixset.list,REJECT,update-interval=120
 ```
 ```conf
 #在Surge中引用远程拦截域名模块

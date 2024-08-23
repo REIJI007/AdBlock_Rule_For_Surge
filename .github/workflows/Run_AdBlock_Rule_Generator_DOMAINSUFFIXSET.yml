@@ -1,4 +1,4 @@
-name: Run_AdBlock_Rule_Generator_DOMAINSET.yml  # 工作流名称
+name: Run_AdBlock_Rule_Generator_DOMAINSUFFIXSET  # 工作流名称
 
 on:
   schedule:

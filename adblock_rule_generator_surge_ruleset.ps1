@@ -102,54 +102,77 @@ $webClient = New-Object System.Net.WebClient
 $webClient.Encoding = [System.Text.Encoding]::UTF8
 $webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
 
-foreach ($url in $urlList) {
+foreach ($url in $urlList) 
+{
     Write-Host "正在处理: $url"
     Add-Content -Path $logFilePath -Value "正在处理: $url"
     
-    try {
+    try 
+    {
         $content = $webClient.DownloadString($url)
         $lines = $content -split "`n"
+        
+        # 收集所有例外规则的域名
+        $exceptionDomains = @()
 
-        foreach ($line in $lines) {
+        foreach ($line in $lines) 
+        {
+            # 收集@@开头的例外规则
+            if ($line -match '^@@\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$') 
+            {
+                $exceptionDomains += $Matches[1]
+            }
+        }
+
+        foreach ($line in $lines) 
+        {
             # 排除注释、空行和例外规则
-            if ($line -match '^\s*(#|$)' -or $line -match '^@@') {
+            if ($line -match '^\s*(#|$)' -or $line -match '^@@') 
+            {
                 continue
             }
 
             # 函数：检查是否为有效域名
-            function Is-ValidDomain {
+            function Is-ValidDomain 
+            {
                 param ([string]$domain)
                 return $domain -match '^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}$'
             }
 
-            # 匹配 Adblock/Easylist 格式的完全拦截规则
-            if ($line -match '^\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$') {
+            # 初步筛选匹配的域名
+            $domain = ""
+            if ($line -match '^\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$') 
+            {
                 $domain = $Matches[1]
-                if (Is-ValidDomain $domain) {
-                    $uniqueRules.Add($domain) | Out-Null
-                }
             }
-            # 匹配 Hosts 文件格式的规则
-            elseif ($line -match '^(0\.0\.0\.0|127\.0\.0\.1)\s+([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$') {
+            elseif ($line -match '^(0\.0\.0\.0|127\.0\.0\.1)\s+([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$') 
+            {
                 $domain = $Matches[2]
-                if (Is-ValidDomain $domain) {
-                    $uniqueRules.Add($domain) | Out-Null
-                }
             }
-            # 匹配 Dnsmasq 格式的完全拦截规则
-            elseif ($line -match '^address=/([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/(?:0\.0\.0\.0|\s*|$)') {
+            elseif ($line -match '^address=/([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/(?:0\.0\.0\.0|\s*|$)') 
+            {
                 $domain = $Matches[1]
-                if (Is-ValidDomain $domain) {
+            }
+
+            # 进行第二步筛选
+            if ($domain -ne "" -and Is-ValidDomain $domain) 
+            {
+                $isException = $exceptionDomains -contains $domain
+                
+                if (-not $isException) 
+                {
                     $uniqueRules.Add($domain) | Out-Null
                 }
             }
         }
     } 
-    catch {
+    catch 
+    {
         Write-Host "处理 $url 时出错: $_"
         Add-Content -Path $logFilePath -Value "处理 $url 时出错: $_"
     }
 }
+
 
 
 # 对规则进行排序并添加DOMAIN-SUFFIX,前缀

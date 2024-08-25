@@ -94,12 +94,12 @@ $urlList = @(
 # 日志文件路径
 $logFilePath = "$PSScriptRoot/adblock_log.txt"
 
-# 创建一个HashSet来存储唯一的规则
+# 创建两个HashSet来存储唯一的规则和排除的域名
 $uniqueRules = [System.Collections.Generic.HashSet[string]]::new()
+$excludedDomains = [System.Collections.Generic.HashSet[string]]::new()
 
-# 创建WebClient对象用于下载URL内容
+# 创建WebClient对象用于下载规则
 $webClient = New-Object System.Net.WebClient
-$webClient.Encoding = [System.Text.Encoding]::UTF8
 $webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
 
 foreach ($url in $urlList) {
@@ -150,6 +150,7 @@ foreach ($url in $urlList) {
 
 # 排除以 @@|| 开头规则中提取的域名
 $finalRules = $uniqueRules | Where-Object { -not $excludedDomains.Contains($_) }
+
 
 # 对规则进行排序并添加DOMAIN-SUFFIX,前缀
 $formattedRules = $uniqueRules | Sort-Object | ForEach-Object {"DOMAIN-SUFFIX,$_"}

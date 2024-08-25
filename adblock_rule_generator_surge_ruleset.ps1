@@ -105,40 +105,46 @@ $webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) 
 foreach ($url in $urlList) {
     Write-Host "正在处理: $url"
     Add-Content -Path $logFilePath -Value "正在处理: $url"
-    try 
-    {
+    
+    try {
         $content = $webClient.DownloadString($url)
         $lines = $content -split "`n"
 
-        foreach ($line in $lines) 
-        {
-            # 排除例外规则
-            if ($line -match '^@@') {
+        foreach ($line in $lines) {
+            # 排除注释、空行和例外规则
+            if ($line -match '^\s*(#|$)' -or $line -match '^@@') {
                 continue
             }
 
-            # 匹配 Adblock/Easylist 格式的规则
+            # 函数：检查是否为有效域名
+            function Is-ValidDomain {
+                param ([string]$domain)
+                return $domain -match '^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}$'
+            }
+
+            # 匹配 Adblock/Easylist 格式的完全拦截规则
             if ($line -match '^\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$') {
                 $domain = $Matches[1]
-                $uniqueRules.Add($domain) | Out-Null
+                if (Is-ValidDomain $domain) {
+                    $uniqueRules.Add($domain) | Out-Null
+                }
             }
             # 匹配 Hosts 文件格式的规则
             elseif ($line -match '^(0\.0\.0\.0|127\.0\.0\.1)\s+([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$') {
                 $domain = $Matches[2]
-                $uniqueRules.Add($domain) | Out-Null
+                if (Is-ValidDomain $domain) {
+                    $uniqueRules.Add($domain) | Out-Null
+                }
             }
-            # 匹配 Dnsmasq 格式的规则
-            elseif ($line -match '^address=/([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/$') {
+            # 匹配 Dnsmasq 格式的完全拦截规则
+            elseif ($line -match '^address=/([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/(?:0\.0\.0\.0|\s*|$)') {
                 $domain = $Matches[1]
-                $uniqueRules.Add($domain) | Out-Null
-            }
-            # 匹配通配符匹配格式的规则
-            elseif ($line -match '^\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$') {
-                $domain = $Matches[1]
-                $uniqueRules.Add($domain) | Out-Null
+                if (Is-ValidDomain $domain) {
+                    $uniqueRules.Add($domain) | Out-Null
+                }
             }
         }
-    }
+    } 
     catch {
         Write-Host "处理 $url 时出错: $_"
         Add-Content -Path $logFilePath -Value "处理 $url 时出错: $_"
@@ -146,8 +152,7 @@ foreach ($url in $urlList) {
 }
 
 
-
-# 对规则进行排序并添加DOMAIN,前缀
+# 对规则进行排序并添加DOMAIN-SUFFIX,前缀
 $formattedRules = $uniqueRules | Sort-Object | ForEach-Object {"DOMAIN-SUFFIX,$_"}
 
 # 统计生成的规则条目数量

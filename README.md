@@ -41,7 +41,7 @@ RULE-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名
 ```
 ```conf
 #在Surge中引用本地拦截域名模块
-#!include local_module.sgmodule  #你的本地拦截域名模块的路径
+#!include=local_module.sgmodule  #你的本地拦截域名模块的路径
 ```
 
 

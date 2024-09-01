@@ -62,7 +62,7 @@ RULE-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名
 <hr>
 
 ```conf
-#适用于Surge的list格式RULE-SET
+#适用于Surge的外部远程拦截域名RULE-SET规则集
 [Rule]
 RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.list,REJECT,update-interval=120
 ```

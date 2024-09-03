@@ -50,20 +50,18 @@ jobs:
           # 等待90秒
           sleep 90
 
-  
-
-  trigger_process_adblock_files:
+  trigger_adblock_rule_generator_sgmodule:
     runs-on: ubuntu-latest
     needs: trigger_adblock_rule_generator_ruleset
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Trigger and verify Process_Adblock_Files
+      - name: Trigger and verify Run_AdBlock_Rule_Generator_SGMODULE
         env:
           TOKEN: ${{ secrets.TOKEN }}
         run: |
-          workflow_id="Process_Adblock_Files.yml"
+          workflow_id="Run_AdBlock_Rule_Generator_SGMODULE.yml"
           ref="main"
           url="https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches"
           
@@ -99,12 +97,12 @@ jobs:
 
   trigger_release_adblock_file:
     runs-on: ubuntu-latest
-    needs: trigger_process_adblock_files
+    needs: trigger_adblock_rule_generator_sgmodule
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Trigger and verify Release ADblock file
+      - name: Trigger and verify Release_ADblock_file
         env:
           TOKEN: ${{ secrets.TOKEN }}
         run: |

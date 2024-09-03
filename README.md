@@ -22,9 +22,9 @@
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.list*
 <br>
 <br>
-*2、适用于Surge的外部远程域名拦截模块 adblock_reject_surge_module.sgmodule* 
+*2、适用于Surge的外部远程域名拦截模块 adblock_reject_surge.sgmodule* 
 <br>
-*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_module.sgmodule*
+*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge.sgmodule*
 <br>
 
 
@@ -68,7 +68,7 @@ RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/
 ```
 ```conf
 #在Surge中引用远程拦截域名模块
-#!include-url=https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_module.sgmodule, interval=120
+#!include-url=https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge.sgmodule, interval=120
 ```
 <hr>
 

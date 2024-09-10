@@ -36,7 +36,7 @@ jobs:
       # 步骤5：强制添加、提交并推送更改
       - name: Force add and commit changes
         run: |
-          git add -f  adblock_reject_surge_ruleset.list timestamp.txt
+          git add -f adblock_reject_surge_ruleset.list adblock_reject_surge_ruleset.txt timestamp.txt
           git commit -m "Forced update of adblock files and timestamp" || echo "No changes to commit"
           git push origin main --force || true
         env: 
@@ -58,8 +58,7 @@ jobs:
            body: "Periodic release of adblock files." # 发布说明
            draft: false # 创建正式发布，而非草稿
 
-
-      # 步骤7：上传 adblock_reject_surge_ruleset.list
+      # 步骤7：上传 adblock_reject_surge_ruleset.list 和 adblock_reject_surge_ruleset.txt
       - name: Upload adblock_reject_surge_ruleset.list
         uses: actions/upload-release-asset@v1
         env: 
@@ -68,4 +67,14 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./adblock_reject_surge_ruleset.list
           asset_name: adblock_reject_surge_ruleset.list
+          asset_content_type: text/plain
+
+      - name: Upload adblock_reject_surge_ruleset.txt
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./adblock_reject_surge_ruleset.txt
+          asset_name: adblock_reject_surge_ruleset.txt
           asset_content_type: text/plain

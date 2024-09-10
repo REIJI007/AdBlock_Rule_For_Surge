@@ -17,10 +17,16 @@
 
 **一、从多个广告过滤器中提取拦截域名条目，删除重复项，并将它们转换为兼容Surge的列表格式，其中列表的每一项都写成了Matcher Ruleset格式数组，一行仅一条规则。该列表可以用作Surge的RULE-SET和DOMAIN-SET以阻止广告域名，其中模块adblock_reject_surge_module.sgmodule由adblock_reject_surge_ruleset.list经过处理得到，powershell脚本每20分钟自动执行并将生成的文件发布在release中,下面是三个规则集文件地址.**
 
-*适用于Surge的外部远程域名拦截RULE-SET规则集 adblock_reject_surge_ruleset.list* 
+1、*适用于Surge的外部远程域名拦截RULE-SET规则集 adblock_reject_surge_ruleset.list* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.list*
 <br>
+
+2、*适用于Surge的外部远程域名拦截RULE-SET规则集 adblock_reject_surge_ruleset.txt* 
+<br>
+*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.txt*
+<br>
+
 
 
 **二、理论上任何代理拦截域名且符合广告过滤器过滤语法的列表订阅URL都可加入此powershell脚本处理，请自行酌情添加过滤器订阅URL至adblock_rule_generator_surge_ruleset.ps1脚本和adblock_rule_generator_surge_domainset.ps1脚本中进行处理，你可将该脚本代码复制到本地文本编辑器制作成.ps1后缀的文件运行在powershell上，注意修改生成文件路径，最后在surge的配置中实现调用本地生成的规则集文件，且surge配置字段写成类似于如下例子**
@@ -44,7 +50,11 @@
 [Rule]
 RULE-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名规则集文件保存路径
 ```
-
+```conf
+#适用于Surge的外部本地拦截域名RULE-SET规则集
+[Rule]
+RULE-SET,local:///path/to/your/file.txt,REJECT  #你的外部本地拦截域名规则集文件保存路径
+```
 
 <hr>
 
@@ -56,6 +66,11 @@ RULE-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名
 #适用于Surge的外部远程拦截域名RULE-SET规则集
 [Rule]
 RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.list,REJECT,update-interval=120
+```
+```conf
+#适用于Surge的外部远程拦截域名RULE-SET规则集
+[Rule]
+RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.txt,REJECT,update-interval=120
 ```
 
 <hr>

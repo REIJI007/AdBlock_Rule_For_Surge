@@ -17,14 +17,9 @@
 
 **一、从多个广告过滤器中提取拦截域名条目，删除重复项，并将它们转换为兼容Surge的列表格式，其中列表的每一项都写成了Matcher Ruleset格式数组，一行仅一条规则。该列表可以用作Surge的RULE-SET和DOMAIN-SET以阻止广告域名，其中模块adblock_reject_surge_module.sgmodule由adblock_reject_surge_ruleset.list经过处理得到，powershell脚本每20分钟自动执行并将生成的文件发布在release中,下面是三个规则集文件地址.**
 
-*1、适用于Surge的外部远程域名拦截RULE-SET规则集 adblock_reject_surge_ruleset.list* 
+*适用于Surge的外部远程域名拦截RULE-SET规则集 adblock_reject_surge_ruleset.list* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.list*
-<br>
-<br>
-*2、适用于Surge的外部远程域名拦截模块 adblock_reject_surge.sgmodule* 
-<br>
-*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge.sgmodule*
 <br>
 
 
@@ -32,20 +27,7 @@
 <br>
 <br>
 *简而言之就是可以让你DIY出希望得到的拦截域名Matcher Ruleset列表，缺点是此做法只适合本地定制使用，当然你也可以像本仓库一样部署到GitHub上面，见仁见智*
-<hr>
 
-```conf
-#适用于Surge的外部本地拦截域名RULE-SET规则集
-[Rule]
-RULE-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名规则集文件保存路径
-```
-```conf
-#在Surge中引用本地拦截域名模块
-#!include=local_module.sgmodule  #你的本地拦截域名模块的路径
-```
-
-
-<hr>
 
 **三、本仓库引用多个广告过滤器，从这些广告过滤器中提取了被拦截条目的域名，剔除了非拦截项并去重，最后做成rule_set规则集和域名拦截模块，虽无法做到面面俱到但能减少广告带来的困扰，请自行斟酌考虑使用。碍于Surge的路由行为且秉持着尽可能不误杀的原则，本仓库采取域名后缀匹配策略，即匹配命中于拦截列表上的域名或其子域名时触发拦截，除此之外的情况给予放行，尽管这会有许多漏网之鱼的广告被放行**
 <br>
@@ -55,7 +37,16 @@ RULE-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名
 
   *使用方式一：下载releases中的文件，并修改你的Surge配置文件[rule]字段进行本地引用规则集文件（需要时常手动下载更新）,或者在配置文件中直接引用下载好的本地域名拦截模块*
 
+<hr>
 
+```conf
+#适用于Surge的外部本地拦截域名RULE-SET规则集
+[Rule]
+RULE-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名规则集文件保存路径
+```
+
+
+<hr>
 
    *使用方式二：将下面对应格式的配置文件中[rule]字段内容添加到你的配置文件充当远程规则集，需要特别注意配置文件的缩进和对齐（同步本仓库的云端部署的远程规则集配置)，或者在配置文件中使用远程域名拦截模块*
 
@@ -66,10 +57,7 @@ RULE-SET,local:///path/to/your/file.list,REJECT  #你的外部本地拦截域名
 [Rule]
 RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge_ruleset.list,REJECT,update-interval=120
 ```
-```conf
-#在Surge中引用远程拦截域名模块
-#!include-url=https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge.sgmodule, interval=120
-```
+
 <hr>
 
 

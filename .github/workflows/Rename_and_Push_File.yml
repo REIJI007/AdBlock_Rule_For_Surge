@@ -1,0 +1,34 @@
+name: Rename_and_Push_File  # 工作流名称
+
+on:
+  workflow_dispatch:  # 允许手动触发工作流
+
+jobs:
+  rename-and-push:
+    runs-on: ubuntu-latest  # 使用最新的 Ubuntu 版本作为运行环境
+
+    steps:
+    - name: Checkout repository  # 检出代码仓库
+      uses: actions/checkout@v3  # 使用官方的 checkout 操作来检出代码
+
+    - name: Rename file extension  # 重命名文件扩展名
+      run: |
+        if [ -f "./adblock_reject_surge_ruleset.list" ]; then
+          mv ./adblock_reject_surge_ruleset.list ./adblock_reject_surge_ruleset.txt
+        else
+          echo "File adblock_reject_surge_ruleset.list does not exist"
+          exit 1
+        fi
+
+    - name: List files in the directory  # 列出当前目录下的文件
+      run: ls -la
+
+    - name: Commit and Push .txt file  # 提交并推送 .txt 文件
+      run: |
+        git config --global user.name 'github-actions'  # 配置提交用户名
+        git config --global user.email 'github-actions@github.com'  # 配置提交邮箱
+        git add -f adblock_reject_surge_ruleset.txt  # 强制添加重命名后的文件
+        git commit -m 'Rename and push adblock_reject_surge_ruleset.txt' || git commit --allow-empty -m 'Empty commit to force push'  # 提交更改，若无更改则提交空更改
+        git push --force origin HEAD || echo "Push failed, continuing workflow"  # 强制推送更改，若失败则继续执行
+      env:
+        TOKEN: ${{ secrets.TOKEN }}  # 使用 GitHub 密钥进行身份验证

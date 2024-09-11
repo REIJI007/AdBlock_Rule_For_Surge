@@ -28,15 +28,15 @@ jobs:
         sudo apt-get install -y powershell  # 安装 PowerShell 7
         rm packages-microsoft-prod.deb  # 删除包配置文件
 
-    - name: Run adblock_rule_generator_surge_ruleset.ps1  # 运行 adblock_rule_generator_surge_ruleset.ps1 脚本
-      run: pwsh -File ./adblock_rule_generator_surge_ruleset.ps1  # 使用 PowerShell 7 运行脚本
+    - name: Run adblock_rule_generator_surge.ps1  # 运行 adblock_rule_generator_surge.ps1 脚本
+      run: pwsh -File ./adblock_rule_generator_surge.ps1  # 使用 PowerShell 7 运行脚本
 
     - name: Force Add and Commit LIST file  # 强制添加并提交 LIST 文件
       run: |
         git config --global user.name 'github-actions'  # 配置提交用户名
         git config --global user.email 'github-actions@github.com'  # 配置提交邮箱
-        git add -f adblock_reject_surge_ruleset.list  # 强制添加 adblock_reject_surge_ruleset.list 文件
-        git commit -m 'Update adblock_reject_surge_ruleset.list' || git commit --allow-empty -m 'Empty commit to force push'  # 提交更改，若无更改则提交空更改
+        git add -f adblock_reject_surge.list  # 强制添加 adblock_reject_surge.list 文件
+        git commit -m 'Update adblock_reject_surge.list' || git commit --allow-empty -m 'Empty commit to force push'  # 提交更改，若无更改则提交空更改
 
     - name: Retry Push LIST file  # 推送 LIST 文件，失败时重试
       env:

@@ -12,11 +12,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Trigger and verify Run_AdBlock_Rule_Generator_RULESET
+      - name: Trigger and verify Run_AdBlock_Rule_Generator_Surge.yml
         env:
           TOKEN: ${{ secrets.TOKEN }}
         run: |
-          workflow_id="Run_AdBlock_Rule_Generator_RULESET.yml"
+          workflow_id="Run_AdBlock_Rule_Generator_Surge.yml"
           ref="main"
           url="https://api.github.com/repos/REIJI007/AdBlock_Rule_For_Surge/actions/workflows/$workflow_id/dispatches"
           
@@ -57,7 +57,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Trigger and verify Rename_and_Push_File
+      - name: Trigger and verify Rename_and_Push_File.yml
         env:
           TOKEN: ${{ secrets.TOKEN }}
         run: |
@@ -102,7 +102,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Trigger and verify Release_ADblock_file
+      - name: Trigger and verify Release_ADblock_file.yml
         env:
           TOKEN: ${{ secrets.TOKEN }}
         run: |

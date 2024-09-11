@@ -1,4 +1,4 @@
-name: Run_AdBlock_Rule_Generator_RULESET  # 工作流名称
+name: Run_AdBlock_Rule_Generator_Surge  # 工作流名称
 
 on:
   schedule:

@@ -160,15 +160,15 @@ RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/
 31、Perflyst
 (https://github.com/Perflyst/PiHoleBlocklist)<br>
 32、hagezi
-(https://github.com/hagezi/dns-blocklists)
+(https://github.com/hagezi/dns-blocklists)<br>
 33、neodevpro
-(https://github.com/neodevpro/neodevhost)
+(https://github.com/neodevpro/neodevhost)<br>
 34、notracking
-(https://github.com/notracking/hosts-blocklists)
+(https://github.com/notracking/hosts-blocklists)<br>
 35、damengzhu
-(https://github.com/damengzhu/banad)
+(https://github.com/damengzhu/banad)<br>
 36、hectorm
-(https://github.com/hectorm/hblock)
+(https://github.com/hectorm/hblock)<br>
 
 
 

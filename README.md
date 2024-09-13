@@ -169,7 +169,7 @@ RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/
 (https://github.com/damengzhu/banad)<br>
 36、hectorm
 (https://github.com/hectorm/hblock)<br>
-37.badmojr
+37. badmojr
 (https://github.com/badmojr/1Hosts)
 
 

@@ -412,13 +412,13 @@ https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/SpywareFilte
 https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/SpywareFilter/sections/tracking_servers.txt
 
 138. AdGuard SpywareFilter-tracking_servers_firstparty
-https://github.com/AdguardTeam/AdguardFilters/blob/master/SpywareFilter/sections/tracking_servers_firstparty.txt
+https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/SpywareFilter/sections/tracking_servers_firstparty.txt
 
 139. AdGuard TrackParamFilter-allowlist
 https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/TrackParamFilter/sections/allowlist.txt
 
 140. AdGuard TrackParamFilter-general_url
-https://github.com/AdguardTeam/AdguardFilters/blob/master/TrackParamFilter/sections/general_url.txt
+https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/TrackParamFilter/sections/general_url.txt
 
 141. HyperADRules  
 https://raw.githubusercontent.com/Lynricsy/HyperADRules/master/rules.txt
@@ -623,3 +623,5 @@ https://hblock.molinero.dev/hosts_adblock.txt
 
 208.1Hosts's adblock list
 https://raw.githubusercontent.com/badmojr/1Hosts/master/Pro/adblock.txt
+
+

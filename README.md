@@ -168,7 +168,7 @@ RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/
 35、badmojr
 (https://github.com/badmojr/1Hosts)<br>
 36、afwfv
-https://github.com/afwfv/DD-AD
+(https://github.com/afwfv/DD-AD)
 
 
 

@@ -168,11 +168,11 @@ RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/
 35、badmojr
 (https://github.com/badmojr/1Hosts)<br>
 36、afwfv
-https://github.com/afwfv/DD-AD<br>
+(https://github.com/afwfv/DD-AD)<br>
 37、paulgb
-https://github.com/paulgb/BarbBlock<br>
+(https://github.com/paulgb/BarbBlock)<br>
 38、Adblocker
-https://adblockultimate.net/filters<br>
+(https://adblockultimate.net/filters)<br>
 
 
 

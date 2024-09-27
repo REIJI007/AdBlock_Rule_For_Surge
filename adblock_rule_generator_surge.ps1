@@ -178,7 +178,6 @@ $urlList = @(
 "https://raw.githubusercontent.com/Lynricsy/HyperADRules/master/rules.txt",
 "https://raw.githubusercontent.com/Lynricsy/HyperADRules/master/dns.txt",
 "https://raw.githubusercontent.com/Lynricsy/HyperADRules/master/allow.txt",
-"https://raw.githubusercontent.com/guandasheng/adguardhome/main/rule/all.txt",
 "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/master/rule.txt",
 "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/master/mv.txt",
 "https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/nocoin.txt",
@@ -205,7 +204,6 @@ $urlList = @(
 "https://raw.githubusercontent.com/brave/adblock-lists/master/brave-lists/brave-firstparty.txt",
 "https://raw.githubusercontent.com/brave/adblock-lists/master/brave-lists/brave-firstparty-cname.txt",
 "https://raw.githubusercontent.com/brave/adblock-lists/master/brave-unbreak.txt",
-"https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_10_Useful/filter.txt",
 "https://pgl.yoyo.org/adservers/serverlist.php?hostformat=adblockplus&showintro=0",
 "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareAdGuard.txt",
 "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareABP.txt",
@@ -458,7 +456,10 @@ $urlList = @(
 "https://filters.adtidy.org/ios/filters/251_optimized.txt",
 "https://filters.adtidy.org/ios/filters/255_optimized.txt",
 "https://filters.adtidy.org/ios/filters/256_optimized.txt",
-"https://filters.adtidy.org/ios/filters/257_optimized.txt"
+"https://filters.adtidy.org/ios/filters/257_optimized.txt",
+"https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/Phishing-Angriffe",
+"https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/malware",
+"https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/spam.mails"
 )
 
 # 日志文件路径

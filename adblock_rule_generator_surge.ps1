@@ -450,10 +450,7 @@ $urlList = @(
 "https://filters.adtidy.org/ios/filters/251_optimized.txt",
 "https://filters.adtidy.org/ios/filters/255_optimized.txt",
 "https://filters.adtidy.org/ios/filters/256_optimized.txt",
-"https://filters.adtidy.org/ios/filters/257_optimized.txt",
-"https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/Phishing-Angriffe",
-"https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/malware",
-"https://raw.githubusercontent.com/RPiList/specials/master/Blocklisten/spam.mails"
+"https://filters.adtidy.org/ios/filters/257_optimized.txt"
 )
 
 # 日志文件路径

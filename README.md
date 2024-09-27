@@ -102,7 +102,7 @@ RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/
 
 
 
-**六、本仓库引用的广告过滤规则来源请查看```Referencing rule sources.txt```，后续考虑添加更多上游规则列表进行处理整合（目前446个来源）。至于是否误杀域名完全取决于这些处于上游的广告过滤器的域名拦截行为，若不满意的话可按照第二条使用adblock_rule_generator_surge.ps1脚本进行DIY本地定制化，亦或可以像本仓库一样DIY定制后部署到github上面，或者fork本仓库自行DIY**
+**六、本仓库引用的广告过滤规则来源请查看```Referencing rule sources.txt```，后续考虑添加更多上游规则列表进行处理整合（目前445个来源）。至于是否误杀域名完全取决于这些处于上游的广告过滤器的域名拦截行为，若不满意的话可按照第二条使用adblock_rule_generator_surge.ps1脚本进行DIY本地定制化，亦或可以像本仓库一样DIY定制后部署到github上面，或者fork本仓库自行DIY**
 
 
 **七、特别鸣谢**
@@ -166,20 +166,19 @@ RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/
 (https://github.com/hagezi/dns-blocklists)<br>
 29、neodevpro
 (https://github.com/neodevpro/neodevhost)<br>
-30、notracking
-(https://github.com/notracking/hosts-blocklists)<br>
-31、damengzhu
+30、damengzhu
 (https://github.com/damengzhu/banad)<br>
-32、hectorm
+31、hectorm
 (https://github.com/hectorm/hblock)<br>
-33、badmojr
+32、badmojr
 (https://github.com/badmojr/1Hosts)<br>
-34、paulgb
+33、paulgb
 (https://github.com/paulgb/BarbBlock)<br>
-35、Adblocker
+34、Adblocker
 (https://adblockultimate.net/filters)<br>
-36、RPiList
+35、RPiList
 (https://github.com/RPiList/specials)<br>
+
 
 
 

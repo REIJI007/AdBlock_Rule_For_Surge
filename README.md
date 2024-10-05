@@ -1,5 +1,5 @@
-[![GPL 3.0 license](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://github.com/REIJI007/AdBlock_Rule_For_Clash/blob/main/LICENSE-GPL3.0)
-[![CC BY-NC-SA 4.0 license](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://github.com/REIJI007/AdBlock_Rule_For_Clash/blob/main/LICENSE-CC%20BY-NC-SA%204.0)
+[![GPL 3.0 license](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-GPL%203.0)
+[![CC BY-NC-SA 4.0 license](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://github.com/REIJI007/AdBlock_Rule_For_Clash/blob/main/LICENSE-CC-BY-NC-SA%204.0)
 <!-- 居中的大标题 -->
 <h1 align="center" style="font-size: 70px; margin-bottom: 20px;">AdBlock_Rule_For_Surge</h1>
 
@@ -185,6 +185,6 @@ RULE-SET,https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/
 
 
 ## LICENSE
-- [CC-BY-SA-4.0 License](https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-CC%20BY-NC-SA%204.0)
-- [GPL-3.0 License](https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-GPL3.0)
+- [CC-BY-SA-4.0 License](https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-CC-BY-NC-SA%204.0)
+- [GPL-3.0 License](https://github.com/REIJI007/AdBlock_Rule_For_Surge/blob/main/LICENSE-GPL%203.0)
 

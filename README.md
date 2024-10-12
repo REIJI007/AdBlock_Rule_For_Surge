@@ -18,22 +18,22 @@
 **一、从多个广告过滤器中提取拦截域名条目，删除重复项，并将它们转换为兼容Surge的列表格式，其中列表的每一项都写成了Matcher Ruleset格式数组，一行仅一条规则。该列表可以用作Surge的RULE-SET以阻止广告域名，adblock_reject_surge.txt由adblock_reject_surge.list经过处理得到，powershell脚本每20分钟自动执行并将生成的文件发布在release中,下面是规则集文件地址.**
 <br>
 
-<table border="1" style="border-collapse: collapse; width: 100%;">
+<table border="1" style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif;">
   <tr>
-    <td>订阅地址:</td>
+    <td colspan="2" style="background-color: #f2f2f2; font-weight: bold; text-align: center; padding: 10px;">订阅地址</td>
   </tr>
   <tr>
-    <td>LIST</td>
-    <td>
-      <strong><a href="https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge.list">Github原始链接</a></strong> | 
-      <strong><a href="https://adblock-surge-list.reiji007.org/">Cloudflare加速链接</a></strong>
+    <td style="padding: 8px;">LIST</td>
+    <td style="padding: 8px;">
+      <strong><a href="https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge.list" style="color: #0066cc;">Github原始链接</a></strong> | 
+      <strong><a href="https://adblock-surge-list.reiji007.org/" style="color: #0066cc;">Cloudflare加速链接</a></strong>
     </td>
   </tr>
   <tr>
-    <td>TXT</td>
-    <td>
-      <strong><a href="https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge.txt">Github原始链接</a></strong> | 
-      <strong><a href="https://adblock-surge-txt.reiji007.org/">Cloudflare加速链接</a></strong>
+    <td style="padding: 8px;">TXT</td>
+    <td style="padding: 8px;">
+      <strong><a href="https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge.txt" style="color: #0066cc;">Github原始链接</a></strong> | 
+      <strong><a href="https://adblock-surge-txt.reiji007.org/" style="color: #0066cc;">Cloudflare加速链接</a></strong>
     </td>
   </tr>
 </table>

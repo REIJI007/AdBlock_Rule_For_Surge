@@ -578,17 +578,11 @@ $finalRules = $validRules | Where-Object { -not $validExcludedDomains.Contains($
 # 对规则进行排序并添加DOMAIN-SUFFIX,前缀
 $formattedRules = $finalRules | Sort-Object | ForEach-Object {".$_"}
 
-
-
 # 统计生成的规则条目数量
 $ruleCount = $finalRules.Count
 
-
 # 获取当前时间并转换为东八区时间
 $generationTime = (Get-Date).ToUniversalTime().AddHours(8).ToString("yyyy-MM-dd HH:mm:ss")
-
-
-
 
 # 创建文本格式的字符串
 $textContent = @"

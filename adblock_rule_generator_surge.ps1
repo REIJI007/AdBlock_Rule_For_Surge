@@ -574,7 +574,6 @@ foreach ($domain in $excludedDomains) {
 # 排除所有白名单规则中的域名
 $finalRules = $validRules | Where-Object { -not $validExcludedDomains.Contains($_) }
 
-
 # 对规则进行排序并添加DOMAIN-SUFFIX,前缀
 $formattedRules = $finalRules | Sort-Object | ForEach-Object {".$_"}
 

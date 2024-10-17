@@ -26,14 +26,14 @@
     <td style="padding: 8px;">LIST</td>
     <td style="padding: 8px;">
       <strong><a href="https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge.list" style="color: #0066cc;">Github原始链接</a></strong> | 
-      <strong><a href="https://adblock-surge-list.reiji007.org/" style="color: #0066cc;">Cloudflare加速链接</a></strong>
+      <strong><a href="https://www.adblock-surge-list.reiji007.org/" style="color: #0066cc;">Cloudflare加速链接</a></strong>
     </td>
   </tr>
   <tr>
     <td style="padding: 8px;">TXT</td>
     <td style="padding: 8px;">
       <strong><a href="https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Surge/main/adblock_reject_surge.txt" style="color: #0066cc;">Github原始链接</a></strong> | 
-      <strong><a href="https://adblock-surge-txt.reiji007.org/" style="color: #0066cc;">Cloudflare加速链接</a></strong>
+      <strong><a href="https://www.adblock-surge-txt.reiji007.org/" style="color: #0066cc;">Cloudflare加速链接</a></strong>
     </td>
   </tr>
 </table>
